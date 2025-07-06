@@ -33,7 +33,8 @@ menuToggle.addEventListener('click', () => {
 const videos = [
     { src: 'G29_steering_wheel_display.mp4' },
     { src: 'moblie manipulation.mp4' },
-    { src: 'NCSC2023GDD2MUV.mp4' }
+    { src: 'NCSC2023GDD2MUV.mp4' },
+    { src: 'robot dog.mp4' }
 ];
 
 let currentVideo = 0;
