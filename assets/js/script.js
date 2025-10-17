@@ -2,6 +2,7 @@
 const wechatLink = document.getElementById('wechat-link');
 const modal = document.getElementById('wechat-modal');
 const closeModal = document.getElementById('close-modal');
+window.moveSlide = moveSlide;
 
 // 点击微信图标时显示二维码弹窗
 wechatLink.addEventListener('click', (e) => {

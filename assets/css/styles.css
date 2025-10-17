@@ -13,7 +13,7 @@ body {
 header {
   z-index: 999;
   width: 100%;
-  background-color: #4caf50;
+  background-color: #000000;
   color: #fff;
   padding: 20px 0;
   position: fixed;
@@ -32,7 +32,7 @@ section {
 }
 
 h2 {
-  color: #4caf50;
+  color: #000000;
   margin-bottom: 20px;
 }
 
@@ -49,7 +49,7 @@ h2 {
   background: #fff;
   border-radius: 8px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   transition: 0.3s;
 }
@@ -64,7 +64,7 @@ h2 {
 }
 
 .show-box a {
-  color: #4caf50;
+  color: #000000;
   text-decoration: none;
 }
 
@@ -155,7 +155,7 @@ h2 {
   font-size: 12px;
   font-weight: bold;
   color: white;
-  background-color: #4caf50; /* 胶囊标签的背景色 */
+  background-color: #000000; /* 胶囊标签的背景色 */
   border-radius: 50px; /* 胶囊形状的关键 */
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 胶囊的阴影效果 */
@@ -164,13 +164,13 @@ h2 {
 
 /* 鼠标悬停效果 */
 .capsule-label:hover {
-  background-color: #45a049; /* 悬停时的背景色变化 */
+  background-color: #000000; /* 悬停时的背景色变化 */
   transform: scale(1.05); /* 鼠标悬停时标签放大 */
 }
 
 /* 可选的不同颜色类型 */
 .capsule-label.green {
-  background-color: #4caf50;
+  background-color: #000000;
 }
 
 /* 按钮样式 */
@@ -182,7 +182,7 @@ h2 {
   font-size: 16px;
   font-weight: 500;
   color: white !important;
-  background-color: #4caf50; /* 按钮的背景色 */
+  background-color: #000000; /* 按钮的背景色 */
   border: 2px solid transparent; /* 设置透明边框，方便悬停时显示 */
   border-radius: 30px; /* 圆角按钮 */
   cursor: pointer;
@@ -194,7 +194,7 @@ h2 {
 .button:hover {
   background-color: #45a049; /* 鼠标悬停时按钮的背景色变化 */
   transform: scale(1.05); /* 悬停时按钮稍微放大 */
-  border-color: #4caf50; /* 悬停时增加边框颜色 */
+  border-color: #000000; /* 悬停时增加边框颜色 */
 }
 
 .button svg {
@@ -205,7 +205,7 @@ h2 {
 
 /* 可选的按钮颜色 */
 .button.green {
-  background-color: #4caf50;
+  background-color: #000000;
 }
 
 #video-player {
@@ -236,8 +236,8 @@ video {
   border: 2px solid transparent;
 }
 .thumb.active {
-  border-color: #007bff;
-  background-color: #007bff;
+  border-color: #000000;
+  background-color: #000000;
 }
 
 /* 图文轮播 */
@@ -349,7 +349,7 @@ video {
 }
 
 .social-links a {
-  color: #4caf50;
+  color: #000000;
   font-size: 20px;
   text-decoration: none;
 }
@@ -358,7 +358,7 @@ video {
 .motto {
   margin-top: 30px;
   font-style: italic;
-  color: #4caf50;
+  color: #000000;
   text-align: center;
   font-size: 18px;
 }
@@ -366,9 +366,9 @@ video {
 /* 教育背景 */
 .area-title {
   padding-left: 2px;
-  border-left: solid 3px #4caf50;
+  border-left: solid 3px #000000;
   font-weight: bold;
-  color: #4caf50;
+  color: #000000;
 }
 
 .show-box#intro .inner-div {
@@ -418,7 +418,7 @@ video {
   .nav-links {
     display: none;
     flex-direction: column;
-    background-color: #4caf50;
+    background-color: #000000;
     width: 100%;
     position: absolute;
     top: 70px;
@@ -442,7 +442,7 @@ video {
   .nav-links.active {
     display: flex;
     opacity: 1;
-    background-color: #69cb6d;
+    background-color: #000000;
   }
 
   .container {
