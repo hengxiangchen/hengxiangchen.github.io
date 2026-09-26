@@ -101,27 +101,28 @@
 
         <section id="research">
             <h2>Research Interests</h2>
-            <ul class="compact-list">
-                <div class="pub-media pub-media--image">
-
-                    <img
-                        src="assets/research_path.png"
-                        alt="hchen research path"
-                        class="pub-image pub-image--fit"
-                    >
-
+            <div class="research-layout">
+                <div class="research-figure">
+                    <button type="button" class="research-zoom-trigger" id="research-zoom-trigger" aria-label="Enlarge research path image">
+                        <img
+                            src="assets/research_path.png"
+                            alt="H. Chen's research path"
+                            class="research-image"
+                        >
+                        <span class="research-zoom-icon" aria-hidden="true">+</span>
+                    </button>
                 </div>
-
-                <li>I used to build robot teleoperation systems for mobile manipulation and focus on learning-based policies based on autoregressive and diffusion models.
+                <div class="research-copy">
+                    <p>I used to build robot teleoperation systems for mobile manipulation and focus on learning-based policies based on autoregressive and diffusion models.
                     Now my research interest is mainly in instructing robots to access contact-rich tasks using multimodality robot learning methods.
-                    <b class="text-red">Here are some of my current research questions:</b></li>
-                1) what kind of training or inference architecture for robot learning could be better in terms of temporal efficiency by fully using the ability of diverse sensors data?
-                <br>
-                2) how to realize robust/compliant task execution during rollout after reinforcement learning or SFT?
-                <br>
-                3) how to extend these generative and robust skills from a fixed side to a mobile embodiment?
-                                    
-            </ul>
+                    <b class="text-red">Here are some of my current research questions:</b></p>
+                    <ol class="research-questions">
+                        <li>What kind of training or inference architecture for robot learning could be better in terms of temporal efficiency by fully using the ability of diverse sensor data?</li>
+                        <li>How can robust/compliant task execution be realized during rollout after reinforcement learning or SFT?</li>
+                        <li>How can these generative and robust skills be extended from a fixed setup to a mobile embodiment?</li>
+                    </ol>
+                </div>
+            </div>
         </section>
 
         <section id="updates">
@@ -663,6 +664,13 @@
         <p>Scan the QR code to add me on WeChat.</p>
     </div>
 </div>
+<div class="image-lightbox" id="research-lightbox" hidden>
+    <button type="button" class="image-lightbox-backdrop" id="research-lightbox-backdrop" aria-label="Close enlarged image"></button>
+    <div class="image-lightbox-panel" role="dialog" aria-modal="true" aria-label="Enlarged research path image">
+        <button type="button" class="image-lightbox-close" id="research-lightbox-close" aria-label="Close enlarged image">&times;</button>
+        <img src="assets/research_path.png" alt="H. Chen's research path" class="image-lightbox-image">
+    </div>
+</div>
 <script>
 (() => {
     const carousel = document.querySelector('.project-carousel');
@@ -695,6 +703,32 @@
     carousel.addEventListener('keydown', (event) => {
         if (event.key === 'ArrowLeft') showSlide(activeIndex - 1);
         if (event.key === 'ArrowRight') showSlide(activeIndex + 1);
+    });
+})();
+
+(() => {
+    const trigger = document.getElementById('research-zoom-trigger');
+    const lightbox = document.getElementById('research-lightbox');
+    const closeButton = document.getElementById('research-lightbox-close');
+    const backdrop = document.getElementById('research-lightbox-backdrop');
+
+    function openLightbox() {
+        lightbox.hidden = false;
+        document.body.classList.add('modal-open');
+        closeButton.focus();
+    }
+
+    function closeLightbox() {
+        lightbox.hidden = true;
+        document.body.classList.remove('modal-open');
+        trigger.focus();
+    }
+
+    trigger?.addEventListener('click', openLightbox);
+    closeButton?.addEventListener('click', closeLightbox);
+    backdrop?.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
     });
 })();
 </script>
