@@ -1,5 +1,122 @@
 window.HENCY_BLOG_POSTS = [
     {
+        "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+        "date": "2026-09-21",
+        "slug": "bert",
+        "tags": "NLP",
+        "summary": "",
+        "markdown": "**文章标题：**BERT: Pre-training of Deep Bidirectional Transformers for\nLanguage Understanding\n**链接：**https://arxiv.org/pdf/1810.04805\n1.BERT：Encoder-only\n![image](assets/blog_images/92.png)\n\n2.GPT: Decoder-only\n![image](assets/blog_images/93.png)\n\n3.The differnece\n![image](assets/blog_images/91.png)",
+        "updatedAt": "2026-09-21T09:59:36.800Z"
+    },
+    {
+        "title": "what is kv_cache?",
+        "date": "2026-09-21",
+        "slug": "kv-cache",
+        "tags": "",
+        "summary": "",
+        "markdown": "**参考blog:**https://huggingface.co/blog/not-lain/kv-caching\n对于attention过程：\n![image](assets/blog_images/95.png)\nKV Cache本质上就是占用memory的一块缓存换取计算速度的一种方式。不过只保存当前一次生成过程里的 attention 中间结果。\n![image](assets/blog_images/94.png)",
+        "updatedAt": "2026-09-21T12:19:51.076Z"
+    },
+    {
+        "title": "AR-VLA: Autoregressive Action Expert for Vision–Language–Action Models",
+        "date": "2026-09-21",
+        "slug": "ar-vla",
+        "tags": "VLA",
+        "summary": "",
+        "markdown": "**文章标题：**AR-VLA: Autoregressive Action Expert for Vision–Language–Action Models\n**文章链接：**https://arxiv.org/pdf/2603.10126\n**Motivation：**![image](assets/blog_images/96.png)\n**insights from the author:**\nhttps://zhuanlan.zhihu.com/p/2034747452851483505\n",
+        "updatedAt": "2026-09-21T12:28:12.227Z"
+    },
+    {
+        "title": "Test-Time Gradient Guidance of Flow Policies in Reinforcement Learning",
+        "date": "2026-09-21",
+        "slug": "qgf",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题：**Test-Time Gradient Guidance of Flow Policies in Reinforcement Learning\n**文章链接：**https://arxiv.org/pdf/2606.11087\n**Motivition：**\n![image](assets/blog_images/97.png)",
+        "updatedAt": "2026-09-21T12:35:12.827Z"
+    },
+    {
+        "title": "Factorizing Diffusion Policies for Observation Modality Prioritization",
+        "date": "2026-09-21",
+        "slug": "fdp",
+        "tags": "DP",
+        "summary": "",
+        "markdown": "**文章标题：**Factorizing Diffusion Policies for Observation Modality Prioritization\n\n**文章链接：**https://arxiv.org/pdf/2509.16830\n**Motivation：**\n![image](assets/blog_images/98.png)",
+        "updatedAt": "2026-09-21T12:53:44.628Z"
+    },
+    {
+        "title": "GPT 6 Astra as an Embodied Policy",
+        "date": "2026-09-21",
+        "slug": "gpt-6-astra-as-an-embodied-policy",
+        "tags": "Agentic Robot Learning",
+        "summary": "",
+        "markdown": "**文章标题：**GPT 6 Astra as an Embodied Policy\n**文章链接：**https://anonymous-report-421.github.io/public-website/?view=1\n\n**相关链接：**\n1. https://lilianweng.github.io/posts/2026-07-04-harness/\n2. https://github.com/zjwzcx/Awesome-Astra-Embodied-AI\n",
+        "updatedAt": "2026-09-21T13:01:33.062Z"
+    },
+    {
+        "title": "GaP: A Graph-as-Policy Multi-Agent Self-Learning Harness For Variational Automation (VA) Tasks",
+        "date": "2026-09-21",
+        "slug": "graph-as-policy",
+        "tags": "Agentic Robot Learning",
+        "summary": "",
+        "markdown": "**文章标题：**GaP: A Graph-as-Policy Multi-Agent Self-Learning\nHarness For Variational Automation (VA) Tasks\n**文章链接：**https://arxiv.org/pdf/2607.05369\n**what is Variational Automation？**\n![image](assets/blog_images/99.png)\n**Overall Architecture：**\n![image](assets/blog_images/100.png)",
+        "updatedAt": "2026-09-21T13:10:43.356Z"
+    },
+    {
+        "title": "TacVLA: Contact-Aware Tactile Fusion for Robust Vision-Language-Action Manipulation",
+        "date": "2026-09-05",
+        "slug": "tacvla",
+        "tags": "VLA",
+        "summary": "",
+        "markdown": "**文章标题：**TacVLA: Contact-Aware Tactile Fusion for Robust Vision-Language-Action Manipulation\n**文章链接：**https://arxiv.org/pdf/2603.12665\n**总体架构：**\n![image](assets/blog_images/88.png)\n主要创新点是对触觉进行门控，符合接触才使用触觉模态的直观想法",
+        "updatedAt": "2026-09-05T03:47:52.716Z"
+    },
+    {
+        "title": "FA-RDP: A Frequency-Adaptive Reactive Diffusion Policy for Contact-Rich Manipulation",
+        "date": "2026-09-05",
+        "slug": "fa-rdp",
+        "tags": "DP",
+        "summary": "",
+        "markdown": "**文章标题：**FA-RDP: A Frequency-Adaptive Reactive Diffusion Policy for Contact-Rich Manipulation\n**文章链接：**https://arxiv.org/pdf/2607.28596\n\n![image](assets/blog_images/90.png)",
+        "updatedAt": "2026-09-05T18:01:06.255Z"
+    },
+    {
+        "title": "Scaling Diffusion Policy in Transformer to 1 Billion Parameters for Robotic Manipulation",
+        "date": "2026-08-30",
+        "slug": "scaledp",
+        "tags": "DP",
+        "summary": "",
+        "markdown": "**文章标题：**Scaling Diffusion Policy in Transformer to 1 Billion Parameters for Robotic Manipulation\n**链接：**https://arxiv.org/pdf/2409.14411\n**Motivation：**\n![image](assets/blog_images/85.png)\n**AdaLN架构：**\n![image](assets/blog_images/86.png)\n**Results：**\n1. 对比轻量级ScaleDP和DP从易到难任务的成功率\n2. 对比ScaleDP不同量级参数从易到难任务的成功率\n3. 对比ScaleDP不同量级参数Disassembling任务随着专家数据量增大任务的成功率\n4. 对比ScaleDP不同量级参数Assembling任务随着专家数据量增大任务的成功率\n5. 对比ScaleDP不同量级参数Assembling任务随着training steps次数增大（相当于前向->反向->参数更新的次数）任务的成功率\n5. 对比ScaleDP不同量级参数堆cube任务随着training steps次数增大（相当于前向->反向->参数更新的次数）loss收敛\n![image](assets/blog_images/87.png)\n\n",
+        "updatedAt": "2026-08-30T15:33:56.525Z"
+    },
+    {
+        "title": "Learning a Unified Policy for Position and Force Control in Legged Loco-Manipulation",
+        "date": "2026-08-29",
+        "slug": "unifp",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题**：Learning a Unified Policy for Position and Force Control in Legged Loco-Manipulation\n**链接**：https://unified-force.github.io/\n\n**总体推理架构**：![image](assets/blog_images/81.png)\n\n**思考**：是不是和物理世界交互的模态，都应该用一个estimator来估计真实的隐空间信号，并且是不是这样子给任务带来的understanding要优于直接赋予显式信号的sensor带来的？换句话说，在unift这个工作中，这样的estimator是否学到了除了力之外的其它信号？\n",
+        "updatedAt": "2026-08-29T05:38:29.023Z"
+    },
+    {
+        "title": "Catch It! Learning to Catch in Flight with Mobile Dexterous Hands",
+        "date": "2026-08-29",
+        "slug": "catchit",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题：**Catch It! Learning to Catch in Flight with Mobile Dexterous Hands\n\n**链接：**https://arxiv.org/pdf/2409.10319\n**总体架构：**\n![image](assets/blog_images/84.png)",
+        "updatedAt": "2026-08-29T08:59:40.584Z"
+    },
+    {
+        "title": "RLDG: Robotic Generalist Policy Distillation via Reinforcement Learning",
+        "date": "2026-08-29",
+        "slug": "rldg",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题**：RLDG: Robotic Generalist Policy Distillation via Reinforcement Learning\n**链接**：https://generalist-distillation.github.io/\n\n**总体架构**：![image](assets/blog_images/82.png)",
+        "updatedAt": "2026-09-05T03:44:49.900Z"
+    },
+    {
         "title": "SCORE-BASED GENERATIVE MODELING THROUGH STOCHASTIC DIFFERENTIAL EQUATIONS",
         "date": "2026-06-01",
         "slug": "score-based-generative-modeling-through-stochastic-differential-equations",
@@ -167,8 +284,8 @@ window.HENCY_BLOG_POSTS = [
         "slug": "diffusion-policy",
         "tags": "DP",
         "summary": "",
-        "markdown": "**标题：**Diffusion Policy: Visuomotor Policy Learning via Action Diffusion\n\n**链接：**https://arxiv.org/pdf/2303.04137\n\nwhat it the difference among diffusion policy and others?\n![image](assets/blog_images/79.png) \n![image](assets/blog_images/78.png) \n\n**网络架构：**\n![image](assets/blog_images/36.png)\n当 diffusion 生成的是图像时，denoiser 要处理高维空间结构，所以常用 U-Net 或 DiT；当 diffusion 生成的是低维动作序列时，denoiser 只需要处理动作时间序列，所以可以用 1D CNN 或 Transformer。图像观测只是条件输入，通常先由视觉编码器提成特征。\n\n为什么这里action horizon可以影响trade-off between responsiveness and temporal consistancy?\n需要清楚，action horizon越小，比如说1，此时就不是action chunkings output了，当然会影响动作连贯性；action horizon越大，相比于小的horizon推理的时间会更长，responsiveness就低一些。\n![image](assets/blog_images/1.png)\n**Temporal Action Consistancy**：动作序列在时间维度上的连贯性。\n\n\n**DDPM/DDIM；**\nmlp/cnn/u-net/transformer等网络模型根据随机噪声和条件预测去噪噪声，过scheduler（ddpm/ddim）得到去噪的动作，迭代多次（K）得到下一个action chunk\n![image](assets/blog_images/54.png)\n\n**DDPM 全称：**\nDenoising Diffusion Probabilistic Models|去噪扩散概率模型\n**DDIM 全称：**\nDenoising Diffusion Implicit Models | 去噪扩散隐式模型（通过 **η** 调节是否是确定性的）\n真实机器人实验中训练用了 100 个 training diffusion iterations，但用 DDIM 把 inference iterations 降到 8 来减少延迟\n\n都属于采样/生成方法\n```bash\nDDPM：学会怎么一步步去噪\nDDIM：推理时少走几步、跳着去噪\nDiffusion Policy：把这个过程放到 action chunk 上\n```\n\n训练时在每一个batch里，dp会\n1. 取一批 demonstration 数据\n2. 取出 observation 和真实 action chunk\n3. 随机采样 diffusion timestep t：先从真实 action 出发，把一个和 action 同尺寸的随机噪声加到 action 上，得到 noisy action，再把 noisy action 和 t 输入网络\n4. 给真实 action chunk 加噪声\n5. 把 noisy action、observation、t 输入 denoising network\n6. 网络预测噪声\n7. 用预测噪声和真实噪声计算 loss\n8. 反向传播，更新 CNN / Transformer / U-Net 参数\n**t=100 表示“有 100 种噪声程度”**\n**DDPM：**\n![image](assets/blog_images/75.png)\n```python\na_t = sqrt(alpha_bar_t) * a_0 + sqrt(1 - alpha_bar_t) * epsilon # t越大，噪声越大\n```\n![image](assets/blog_images/76.png)\n训练从x0到xt，在t步加噪情况下总共加了多少噪声；推理从xt到x0，在t步去噪下总共需要减去多少噪声，迭代到x0.",
-        "updatedAt": "2026-05-31T16:02:00.359Z"
+        "markdown": "**标题：**Diffusion Policy: Visuomotor Policy Learning via Action Diffusion\n\n**链接：**https://arxiv.org/pdf/2303.04137\n\nwhat it the difference among diffusion policy and others?\n![image](assets/blog_images/79.png) \n![image](assets/blog_images/78.png) \n\n**网络架构：**\n![image](assets/blog_images/36.png)\n当 diffusion 生成的是图像时，denoiser 要处理高维空间结构，所以常用 U-Net 或 DiT；当 diffusion 生成的是低维动作序列时，denoiser 只需要处理动作时间序列，所以可以用 1D CNN 或 Transformer。图像观测只是条件输入，通常先由视觉编码器提成特征。\n\n为什么这里action horizon可以影响trade-off between responsiveness and temporal consistancy?\n需要清楚，action horizon越小，比如说1，此时就不是action chunkings output了，当然会影响动作连贯性；action horizon越大，相比于小的horizon推理的时间会更长，responsiveness就低一些。\n![image](assets/blog_images/1.png)\n**Temporal Action Consistancy**：动作序列在时间维度上的连贯性。\n\n\n**DDPM/DDIM；**\nmlp/cnn/u-net/transformer等网络模型根据随机噪声和条件预测去噪噪声，过scheduler（ddpm/ddim）得到去噪的动作，迭代多次（K）得到下一个action chunk\n![image](assets/blog_images/54.png)\n\n**DDPM 全称：**\nDenoising Diffusion Probabilistic Models|去噪扩散概率模型\n**DDIM 全称：**\nDenoising Diffusion Implicit Models | 去噪扩散隐式模型（通过 **η** 调节是否是确定性的）\n真实机器人实验中训练用了 100 个 training diffusion iterations，但用 DDIM 把 inference iterations 降到 8 来减少延迟\n\n都属于采样/生成方法\n```bash\nDDPM：学会怎么一步步去噪\nDDIM：推理时少走几步、跳着去噪\nDiffusion Policy：把这个过程放到 action chunk 上\n```\n\n训练时在每一个batch里，dp会\n1. 取一批 demonstration 数据\n2. 取出 observation 和真实 action chunk\n3. 随机采样 diffusion timestep t：先从真实 action 出发，把一个和 action 同尺寸的随机噪声加到 action 上，得到 noisy action，再把 noisy action 和 t 输入网络\n4. 给真实 action chunk 加噪声\n5. 把 noisy action、observation、t 输入 denoising network\n6. 网络预测噪声\n7. 用预测噪声和真实噪声计算 loss\n8. 反向传播，更新 CNN / Transformer / U-Net 参数\n**t=100 表示“有 100 种噪声程度”**\n**DDPM：**\n![image](assets/blog_images/75.png)\n```python\na_t = sqrt(alpha_bar_t) * a_0 + sqrt(1 - alpha_bar_t) * epsilon # t越大，噪声越大\n```\n![image](assets/blog_images/76.png)\n训练从x0到xt，在t步加噪情况下总共加了多少噪声；推理从xt到x0，在t步去噪下总共需要减去多少噪声，迭代到x0.\n\n**为什么denoising step越多，模型更容易生成多模态结果？**\n想象每一次action chunking的输出都分布在一个distribution（自身具备一定的多模态性），denoising step越多，模型更能正确找到这个distribution（但输出仍旧是一个特定的解，有不同的解所以具备多模态性）。\n由于噪声估计有error，所以每次从不同step估计得到的x0可能都不在一个distribution里，但这里得承认经过不断地使用噪声估计器来减噪，结果是越来越清晰的（比一开始的随机噪声清晰）。\n本来加噪过程的学习其实也是由x0一步一步加过来的，此时如果在去噪的时候直接由一个纯噪声一步变为x0，是不准的。这个不准可能体现在原先数据分布可能是多模态的（比如说多峰分布），现在直接变成了单峰。如果只是one-step denoising，那么不同的初始噪声都可能首先是非正解，这个非正解可能是多模态性坍缩，也可能是是多峰分布但数值有问题。\n另外，注意，这里只是最后算出来x0解的空间刚好落在那个distribution上，不是说在这个distribution里面随机采样一个解来作为x0，也没法这么做。\n但one-step denoising的好处自然就在于它够快，当objective action space比较简单符合单峰的时候，可以考虑直接用。但最好还是蒸馏一下？",
+        "updatedAt": "2026-09-05T18:57:24.868Z"
     },
     {
         "title": "π0",
@@ -185,8 +302,8 @@ window.HENCY_BLOG_POSTS = [
         "slug": "implicitrdp",
         "tags": "DP",
         "summary": "",
-        "markdown": "**标题**：ImplicitRDP: An End-to-End Visual-Force Diffusion Policy with Structural Slow-Fast Learning\n**文章链接**：https://arxiv.org/pdf/2512.10946\n**总体结构**：\n![image](assets/blog_images/2.png)\n\n**slow fast system architecture**：\n![image](assets/blog_images/3.png)\n\n**casual cross attention in transformer-decoder**：\n行是query，列是key/values，这里代表说action看不到未来的force\n\n![image](assets/blog_images/4.png)\ndp原作也有该结构，代表说action emb看不到未来的action emb，这里准确来说应该是casual self-attention，目的是使得未来动作会参考过去动作，从而沿着同一个 mode 继续走，可提高temporal action coherence/consistancy\n\n**为什么做casual self-attention**（未来看得到过去，过去看不到未来，保持一个方向的因果逻辑）：\n1. 保持时间因果方向\n2. 让后续动作延续前序动作的 mode\n3. 避免当前要执行的动作过度依赖未执行的未来计划\n4. 更接近 autoregressive-style 的轨迹展开\n\n\n\n\n\n",
-        "updatedAt": "2026-05-10T05:34:42.345Z"
+        "markdown": "**标题**：ImplicitRDP: An End-to-End Visual-Force Diffusion Policy with Structural Slow-Fast Learning\n**文章链接**：https://arxiv.org/pdf/2512.10946\n**总体结构**：\n![image](assets/blog_images/2.png)\n\n**slow fast system architecture**：\n这个工作中对于快慢系统的定义与rdp（two-stage training）类似，训练方式变为了end2end，依旧是一次视觉多次触觉出动作。\n![image](assets/blog_images/89.png)\n![image](assets/blog_images/3.png)\n\n\n**casual cross attention in transformer-decoder**：\n行是query，列是key/values，这里代表说action看不到未来的force\n\n![image](assets/blog_images/4.png)\ndp原作也有该结构，代表说action emb看不到未来的action emb，这里准确来说应该是casual self-attention，目的是使得未来动作会参考过去动作，从而沿着同一个 mode 继续走，可提高temporal action coherence/consistancy\n\n**为什么做casual self-attention**（未来看得到过去，过去看不到未来，保持一个方向的因果逻辑）：\n1. 保持时间因果方向\n2. 让后续动作延续前序动作的 mode\n3. 避免当前要执行的动作过度依赖未执行的未来计划\n4. 更接近 autoregressive-style 的轨迹展开\n\n\n\n\n\n\n",
+        "updatedAt": "2026-09-05T04:10:31.277Z"
     },
     {
         "title": "FACTR",
