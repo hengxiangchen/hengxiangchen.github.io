@@ -211,10 +211,18 @@ p {
 
 .personal-motto {
     margin-top: 18px;
+    margin-bottom: 0;
     padding-left: 14px;
     border-left: 3px solid #9b7b45;
     color: #5a4d3c;
     font-style: italic;
+}
+
+.last-updated {
+    margin: 5px 0 0 17px;
+    color: #888;
+    font-size: 12px;
+    line-height: 1.4;
 }
 
 .text-red {
@@ -800,6 +808,10 @@ html[data-theme="dark"] .theme-toggle:hover {
 html[data-theme="dark"] .personal-motto {
     border-left-color: #7ac7ff;
     color: #c9d7e6;
+}
+
+html[data-theme="dark"] .last-updated {
+    color: #8e9aab;
 }
 
 html[data-theme="dark"] .text-red {
