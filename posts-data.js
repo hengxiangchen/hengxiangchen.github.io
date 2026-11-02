@@ -1,5 +1,95 @@
 window.HENCY_BLOG_POSTS = [
     {
+        "title": "online/offline RL and on-policy/off-policy RL",
+        "date": "2026-11-02",
+        "slug": "online-offline-rl-and-on-policy-off-policy-rl",
+        "tags": "",
+        "summary": "",
+        "markdown": "online/offline RL:transition是否是在新的rollout中的到得到\n\non-policy/off-policy RL：数据的行为策略（Behavior Policy）是否需要与当前学习的策略一致\n-------------------------------------------------------\nOnline On-policy\t持续交互，使用当前策略数据\tPPO、TRPO\n\nOnline Off-policy\t持续交互，允许使用历史策略数据\tSAC、TD3、DQN、RLPD\n\nOffline On-policy\t不再交互，使用固定数据\t严格定义下通常不成立为标准 On-policy RL\n\nOffline Off-policy\t不再交互，使用固定数据集\tCQL、IQL",
+        "updatedAt": "2026-11-02T02:33:35.945Z"
+    },
+    {
+        "title": "Waypoint-Based Imitation Learning for Robotic Manipulation",
+        "date": "2026-10-28",
+        "slug": "waypoint-based-imitation-learning-for-robotic-manipulation",
+        "tags": "DP",
+        "summary": "",
+        "markdown": "**文章标题:**Waypoint-Based Imitation Learning for Robotic Manipulation\n**文章链接:**https://arxiv.org/pdf/2307.14326\n**研究问题:**Waypoints can help address this problem by reducing the horizon of the learning problem for BC, and thus, the errors compounded over time. Can we generate waypoints automatically without any additional human supervision?\n![image](assets/blog_images/114.png)\n\n方法介绍:\n![image](assets/blog_images/117.png)\n![image](assets/blog_images/118.png)\n![image](assets/blog_images/119.png)\n\n真机经验:\n![image](assets/blog_images/116.png)\n![image](assets/blog_images/115.png)",
+        "updatedAt": "2026-10-28T07:35:56.244Z"
+    },
+    {
+        "title": "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations",
+        "date": "2026-10-28",
+        "slug": "mimicgen",
+        "tags": "DATA",
+        "summary": "",
+        "markdown": "**文章标题:**MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations\n\n**文章链接:**https://arxiv.org/pdf/2310.17596\n\n**研究问题:** ![image](assets/blog_images/120.png)\n![image](assets/blog_images/121.png)\n\n**实验设计:**\n![image](assets/blog_images/122.png)\n\n\n\n",
+        "updatedAt": "2026-10-28T09:00:04.013Z"
+    },
+    {
+        "title": "Redundancy & Null-Space Control",
+        "date": "2026-10-28",
+        "slug": "redundancy-null-space-control",
+        "tags": "",
+        "summary": "",
+        "markdown": "reference:\n1. \nhttps://marionlepert.github.io/tutorials/operational-space-control/part-4-nullspace-control.html\n2. https://learnsyslab.github.io/crisp_controllers/getting_started_controller_details/",
+        "updatedAt": "2026-10-28T09:00:29.919Z"
+    },
+    {
+        "title": "Efficient Online Reinforcement Learning with Offline Data",
+        "date": "2026-10-28",
+        "slug": "rlpd",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题:**Efficient Online Reinforcement Learning with Offline Data\n**文章链接:**https://arxiv.org/pdf/2302.02948\n**研究问题:**![image](assets/blog_images/123.png)\n**什么是UTD:\"\n![image](assets/blog_images/125.png)\n**温度调节的是什么?**\n温度参数alpha调节的是：策略优化时，对随机性（熵）有多重视。\n![image](assets/blog_images/126.png)\n**训练思路:**\n1. 选择几个critic作为subset z来参与Q优化(随机采样最小的)\n2. 添加熵项来优化Q函数\n3. G次critic更新对应1次actor更新\n![image](assets/blog_images/124.png)\n\n**reference:**\n1. https://rlinf.readthedocs.io/en/latest/rst_source/reference/algorithms/rlpd.html\n",
+        "updatedAt": "2026-10-28T09:49:05.587Z"
+    },
+    {
+        "title": "the difference of diverse simulators",
+        "date": "2026-10-27",
+        "slug": "the-difference-of-diverse-simulators",
+        "tags": "",
+        "summary": "",
+        "markdown": "** MJLAB <- Mujoco Warp/MJX-JAX(GPU) <- Mujoco **\n![image](assets/blog_images/109.png)\n** isaac lab <- isaac sim + PhysX/Newton **\n![image](assets/blog_images/110.png)",
+        "updatedAt": "2026-10-27T05:44:35.257Z"
+    },
+    {
+        "title": "Singular Value Decomposition",
+        "date": "2026-10-27",
+        "slug": "svd",
+        "tags": "",
+        "summary": "",
+        "markdown": "什么是机器人ik中的奇异值分解(SVD)?\n![image](assets/blog_images/111.png)",
+        "updatedAt": "2026-10-27T08:45:35.873Z"
+    },
+    {
+        "title": "J-PARSE: Jacobian-based Projection Algorithm for Resolving Singularities Effectively in Inverse Kinematic Control of Serial Manipulators",
+        "date": "2026-10-27",
+        "slug": "j-parse",
+        "tags": "",
+        "summary": "",
+        "markdown": "**文章标题:**J-PARSE: Jacobian-based Projection Algorithm for Resolving Singularities Effectively in Inverse Kinematic Control of Serial Manipulators\n**文章链接:**https://arxiv.org/abs/2505.00306\n**控制框架:**\n![image](assets/blog_images/112.png)\n**方法:**\n![image](assets/blog_images/113.png)",
+        "updatedAt": "2026-10-27T08:50:06.955Z"
+    },
+    {
+        "title": "Real-world Reinforcement Learning from Suboptimal Interventions",
+        "date": "2026-10-26",
+        "slug": "real-world-reinforcement-learning-from-suboptimal-interventions",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题:**Real-world Reinforcement Learning from Suboptimal Interventions\n**文章链接:**https://arxiv.org/pdf/2512.24288\n\n![image](assets/blog_images/106.png)\n![image](assets/blog_images/108.png)\n\n![image](assets/blog_images/107.png)\n\n\n",
+        "updatedAt": "2026-10-27T05:41:33.532Z"
+    },
+    {
+        "title": "Precise and Dexterous Robotic Manipulation via Human-in-the-Loop Reinforcement Learning",
+        "date": "2026-10-19",
+        "slug": "hil-serl",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题:**Precise and Dexterous Robotic Manipulation via Human-in-the-Loop Reinforcement Learning\n**文章链接:**https://hil-serl.github.io/static/hil-serl-paper.pdf\n\n**Real-world human intervention reinforcement learning:**\n![image](assets/blog_images/102.png)\n![image](assets/blog_images/103.png)\n\n**reward classifier:**\n![image](assets/blog_images/104.png)\n\n**reactive policy and preditive policy:**\n![image](assets/blog_images/105.png)\n\n**这一篇工作的控制器值得研究,twist controller/feedforward force controller.**",
+        "updatedAt": "2026-10-26T11:41:45.089Z"
+    },
+    {
         "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
         "date": "2026-09-21",
         "slug": "bert",
