@@ -290,6 +290,70 @@
         font-weight: normal;
     }
 
+    .post-search-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+    }
+
+    .post-search-row .field {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .post-search-row .button {
+        min-height: 38px;
+        box-sizing: border-box;
+    }
+
+    .post-search-status {
+        margin: 8px 0 12px;
+    }
+
+    #post-search {
+        min-height: 44px;
+        border: 2px solid #ad7c24;
+        border-radius: 6px;
+        background: #fff5d6;
+        box-shadow: 0 0 0 3px rgba(173, 124, 36, 0.1);
+        transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    #post-search::placeholder {
+        color: #756345;
+        opacity: 1;
+    }
+
+    #post-search:focus {
+        border-color: #8a5b0a;
+        outline: 2px solid #ad7c24;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 5px rgba(173, 124, 36, 0.16);
+    }
+
+    html[data-theme="dark"] #post-search {
+        border-color: #e3b65c;
+        background: #30291b;
+        color: #fff1cf;
+        box-shadow: 0 0 0 3px rgba(227, 182, 92, 0.12);
+    }
+
+    html[data-theme="dark"] #post-search::placeholder {
+        color: #c7b38a;
+    }
+
+    html[data-theme="dark"] #post-search:focus {
+        border-color: #ffcf75;
+        outline-color: #ffcf75;
+        box-shadow: 0 0 0 5px rgba(227, 182, 92, 0.2);
+    }
+
+    .post-manager-excerpt {
+        margin: 8px 0 0;
+        overflow-wrap: anywhere;
+        line-height: 1.5;
+    }
+
     .post-manager-list {
         display: grid;
         gap: 8px;
@@ -517,6 +581,14 @@
 
         <section class="manager" aria-label="Published posts">
             <h2>Published posts</h2>
+            <div class="post-search-row" role="search" aria-label="Search published posts">
+                <div class="field">
+                    <label for="post-search">Search posts</label>
+                    <input id="post-search" type="search" placeholder="Search title, tags, content, or date..." aria-controls="post-manager-list" aria-describedby="post-search-status">
+                </div>
+                <button type="button" class="button" id="clear-post-search">Clear</button>
+            </div>
+            <p class="status post-search-status" id="post-search-status" role="status" aria-live="polite"></p>
             <ul class="post-manager-list" id="post-manager-list"></ul>
         </section>
     </main>
@@ -534,6 +606,8 @@ const fields = {
 const preview = document.getElementById('preview');
 const statusText = document.getElementById('status');
 const postManagerList = document.getElementById('post-manager-list');
+const postSearch = document.getElementById('post-search');
+const postSearchStatus = document.getElementById('post-search-status');
 const themeToggle = document.getElementById('theme-toggle');
 const draftKey = 'hency-blog-draft';
 const postsKey = 'hency-blog-posts';
@@ -782,15 +856,41 @@ function publishLocal() {
     setStatus('Published locally. Open Blog to see it on this browser.');
 }
 
+function getSearchExcerpt(post, terms) {
+    const markdown = String(post.markdown || '');
+    const summary = String(post.summary || '');
+    const source = terms.some((term) => markdown.toLowerCase().includes(term))
+        ? markdown
+        : terms.some((term) => summary.toLowerCase().includes(term)) ? summary : markdown || summary;
+    const content = source.replace(/\s+/g, ' ').trim();
+    const lowerContent = content.toLowerCase();
+    const matchPositions = terms.map((term) => lowerContent.indexOf(term)).filter((index) => index >= 0);
+    const start = matchPositions.length ? Math.max(0, Math.min(...matchPositions) - 45) : 0;
+    const excerpt = content.slice(start, start + 180);
+    return `${start > 0 ? '...' : ''}${excerpt}${start + excerpt.length < content.length ? '...' : ''}`;
+}
+
 function renderPostManager() {
-    const posts = getAllPosts()
+    const allPosts = getAllPosts()
         .sort((first, second) => String(second.date).localeCompare(String(first.date)));
+    const terms = postSearch.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const posts = allPosts.filter((post) => {
+        const searchable = [post.title, post.tags, post.summary, post.markdown, post.slug, post.date]
+            .map((value) => String(value || '').toLowerCase()).join('\n');
+        return terms.every((term) => searchable.includes(term));
+    });
+    postSearchStatus.textContent = terms.length
+        ? `${posts.length} of ${allPosts.length} posts match. All keywords must match; search is case-insensitive.`
+        : `${allPosts.length} posts. Search titles, tags, summaries, content, slugs, and dates.`;
     postManagerList.innerHTML = '';
 
     if (!posts.length) {
         const emptyItem = document.createElement('li');
         emptyItem.className = 'post-manager-item';
-        emptyItem.innerHTML = '<p class="post-manager-meta">No local posts yet.</p>';
+        const message = document.createElement('p');
+        message.className = 'post-manager-meta';
+        message.textContent = allPosts.length ? 'No matching posts. Try different keywords or clear the search.' : 'No posts yet.';
+        emptyItem.appendChild(message);
         postManagerList.appendChild(emptyItem);
         return;
     }
@@ -802,6 +902,7 @@ function renderPostManager() {
             <div>
                 <p class="post-manager-title">${escapeHtml(post.title || 'Untitled post')}</p>
                 <p class="post-manager-meta">${escapeHtml(post.date || 'Undated')} | ${escapeHtml(post.slug || '')}${post.tags ? ` | ${escapeHtml(post.tags)}` : ''}</p>
+                ${terms.length ? `<p class="post-manager-meta post-manager-excerpt">${escapeHtml(getSearchExcerpt(post, terms))}</p>` : ''}
             </div>
             <div class="post-manager-actions">
                 <button type="button" class="button" data-edit-post="${escapeHtml(post.slug)}">Edit</button>
@@ -945,6 +1046,18 @@ document.getElementById('save-site-data').addEventListener('click', () => {
 document.getElementById('export-md').addEventListener('click', downloadMarkdown);
 document.getElementById('copy-html').addEventListener('click', () => {
     copyHtmlSnippet().catch(() => setStatus('Clipboard is not available in this browser.'));
+});
+postSearch.addEventListener('input', renderPostManager);
+document.getElementById('clear-post-search').addEventListener('click', () => {
+    postSearch.value = '';
+    renderPostManager();
+    postSearch.focus();
+});
+postSearch.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        event.preventDefault();
+        document.getElementById('clear-post-search').click();
+    }
 });
 postManagerList.addEventListener('click', (event) => {
     const editButton = event.target.closest('[data-edit-post]');
