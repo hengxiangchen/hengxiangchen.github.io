@@ -1,12 +1,300 @@
 window.HENCY_BLOG_POSTS = [
     {
+        "title": "One-Shot Imitation Learning",
+        "date": "2026-11-22",
+        "slug": "one-shot-imitation-learning",
+        "tags": "",
+        "summary": "",
+        "markdown": "**文章标题：**One-Shot Imitation Learning\n**文章链接：**https://arxiv.org/pdf/1703.07326\n**研究问题：**\n![image](assets/blog_images/279.png)\n**整体框架：**\n![image](assets/blog_images/280.png)\n\n",
+        "updatedAt": "2026-11-22T03:00:29.474Z"
+    },
+    {
+        "title": "详解L1 loss和L2 loss",
+        "date": "2026-11-22",
+        "slug": "l1-loss-l2-loss",
+        "tags": "",
+        "summary": "",
+        "markdown": "**L2 loss：**最优解是**均值**，所以可能会受离群值影响\n![image](assets/blog_images/281.png)\n**L1 loss：**最优解是**中值**，所以不太会受离群值影响\n![image](assets/blog_images/282.png)\n\n**MSE处处可导，而且梯度值也是动态变化的，能够快速的收敛**；而**MAE在0点处不可导，且其梯度保持不变**。对于很小的损失值其梯度也很大，在深度学习中，就需要使用变化的学习率，在损失值很小时降低学习率。\n**对离群（异常）值得处理上，MAE要明显好于MSE**：如果样本中存在离群点，MSE会给离群点更高的权重，这就会牺牲其他正常点数据的预测效果，最终降低整体的模型性能。\n![image](assets/blog_images/283.png)\n\n\n**应用**\n对于大多数CNN网络，我们一般是使用L2-loss而不是L1-loss，因为L2-loss的收敛速度要比L1-loss要快得多。\n\n对于边框预测回归问题，通常也可以选择平方损失函数（L2损失），但L2范数的缺点是当存在离群点（outliers)的时候，这些点会占loss的主要组成部分。比如说真实值为1，预测10次，有一次预测值为1000，其余次的预测值为1左右，显然loss值主要由1000决定。所以FastRCNN采用稍微缓和一点绝对损失函数（smooth L1损失），它是随着误差线性增长，而不是平方增长。\n\n\n\n",
+        "updatedAt": "2026-11-24T08:30:30.431Z"
+    },
+    {
+        "title": "INSTANT POLICY: IN-CONTEXT IMITATION LEARNING VIA GRAPH DIFFUSION",
+        "date": "2026-11-16",
+        "slug": "instant-policy",
+        "tags": "in-context robot learning",
+        "summary": "",
+        "markdown": "**文章标题：**INSTANT POLICY: IN-CONTEXT IMITATION LEARNING VIA GRAPH DIFFUSION\n**文章链接：**https://arxiv.org/pdf/2411.12633\n",
+        "updatedAt": "2026-11-16T09:01:09.009Z"
+    },
+    {
+        "title": "Distributed Real-Time Chunking",
+        "date": "2026-11-16",
+        "slug": "distributed-real-time-chunking",
+        "tags": "",
+        "summary": "",
+        "markdown": "**文章标题：**Distributed Real-Time Chunking\n**文章链接：**https://jackvial.com/posts/distributed-real-time-chunking.html\n\n**研究问题：**\n![image](assets/blog_images/275.png)\n![image](assets/blog_images/276.png)\n\n",
+        "updatedAt": "2026-11-16T09:34:39.552Z"
+    },
+    {
+        "title": "Real-Time Execution of Action Chunking Flow Policies",
+        "date": "2026-11-16",
+        "slug": "real-time-execution-of-action-chunking-flow-policies",
+        "tags": "",
+        "summary": "",
+        "markdown": "**文章标题：**Real-Time Execution of Action Chunking Flow Policies\n**文章链接：**https://arxiv.org/pdf/2506.07339\n\n\n**研究问题：**\n![image](assets/blog_images/268.png)\n\n### 概括：\ndiffusion-based/flow policy系统，后chunk从推理到执行过程中往往需要需要比较多的时间步，该工作对后chunk本来的action chunking进行修正：进行历史数据的修正（无需retrain from scratch，而是在去噪过程中不断引入由和旧动作计划对齐的loss来引导生成新的去噪步），从而trade-off旧动作计划和新动作预测。\n以flow policy为例（**固定初始噪声和观测后，整条生成轨迹就是确定的**），\n假设机器人以50 Hz控制，每20 ms执行一个动作。(action horizon H=50,前后两个推理间隔s=25,推理耗时d=6)。\n一种做法是1-24走chunk one，然后等6步，开始执行31...；一种做法是1-30走chunk one，在25的时候开始生成chunk two的了，根据condition，如果在31开始执行chunk two对应的31，但这就可能出现第25-30步走的是第一个action chunking的轨迹，第31步走的另外一个方向，按照以往常规加权的方案可能会出现结果平均化，比如撞向中间。不折中轨迹上看起来又是突变的。\n![image](assets/blog_images/269.png)\n\n如何使得第31步能考虑到前面本该由它来驱动的前六个chunk呢？（因为时延它在生成中（已经开始有了，还不能用））这个工作允许第一个chunk生成的那六步继续执行，并约束将要生成的后chunk在速度方向上靠近第一个chunk的这六步。六步之后可以开始削弱，直到第一个chunk完结，开始约束下一个chunk。\n### 流程：\n![image](assets/blog_images/270.png)\n![image](assets/blog_images/271.png)\n\n### 一些参数的定义：\n![image](assets/blog_images/274.png)\nJ是“预测终点对当前动作样本的导数”。\n![image](assets/blog_images/273.png)\n### 梯度如何影响速度生成直观解释（**为什么用的是梯度下降**）\n![image](assets/blog_images/272.png)\n",
+        "updatedAt": "2026-11-16T09:37:26.231Z"
+    },
+    {
+        "title": "Learning Force Distribution Estimation for the GelSight Mini Optical Tactile Sensor Based on Finite Element Analysis",
+        "date": "2026-11-16",
+        "slug": "feats",
+        "tags": "",
+        "summary": "",
+        "markdown": "**文章标题：**Learning Force Distribution Estimation for the GelSight Mini Optical Tactile Sensor Based on Finite Element Analysis\n**文章链接：**https://arxiv.org/pdf/2411.03315\n\n**研究问题：**![image](assets/blog_images/277.png)\n\n**整体框架：**\n![image](assets/blog_images/278.png)",
+        "updatedAt": "2026-11-22T02:51:12.381Z"
+    },
+    {
+        "title": "关于重力补偿",
+        "date": "2026-11-15",
+        "slug": "untitled-post",
+        "tags": "",
+        "summary": "",
+        "markdown": "## 关于重力补偿\n\n分为关节重力补偿和末端重力补偿。笔者考虑三种补偿：\n\n**末端空载：**需完成关节重力补偿，主要是重力矩\n根据正运动学：\n![image](assets/blog_images/266.png)\n机械臂静止，q_dot，q_dot_dot都为0，可标定重力矩G(q)。一般的机械臂出厂都需要标定。\n\n**末端加上负载比如六维力传感器、夹爪、相机：**需考虑这部分重量，负载需要标定。\n\n如果动作空间在关节空间，使用正运动学的相关重力标定已完成。接下来考虑动作空间在任务空间。\n\n**考虑任务空间控制的力传感器标定：**此时需要传感器得到较为精准的力信息，需要消除比如说夹爪的重力、重力矩影响。此时使用待定系数法最小二乘可以标定出重力、重力矩。得到的示数应该在传感器上消除掉。\n![image](assets/blog_images/267.png)\n上述是对静止时候的传感器进行标定，如若考虑更符合实际场景中移动场景下的力标定，需要考虑惯性参数。",
+        "updatedAt": "2026-11-24T08:30:50.662Z"
+    },
+    {
+        "title": "关于Stop-Gradient and Freeze",
+        "date": "2026-11-12",
+        "slug": "stop-gradient-and-freeze",
+        "tags": "",
+        "summary": "",
+        "markdown": "## Stop-Gradient and Freeze\n- Freeze：我不更新这个网络的参数，但允许梯度穿过它。\n- Stop Gradient：我不允许梯度穿过这个位置。\n\n总的来说，如果只有一个loss优化，stop gradient和freeze角色相当。如果存在多个loss优化，比如对于两个相连的网络，使用stop gradient方法stop第一个网络时，loss的梯度不会传到第一个网络从而进行更新，但第一个网络仍旧可以通过其它的loss进行更新。但对于freeze方法，如果freeze住了，参数都不会更新。\n\n- [stop gradient trick](https://zhuanlan.zhihu.com/p/1938965923450061196)\n",
+        "updatedAt": "2026-11-24T08:30:59.422Z"
+    },
+    {
+        "title": "π0.5: a Vision-Language-Action Model with Open-World Generalization",
+        "date": "2026-11-11",
+        "slug": "05",
+        "tags": "VLA",
+        "summary": "",
+        "markdown": "**文章标题：**π0.5: a Vision-Language-Action Model with Open-World Generalization\n**文章链接：**https://arxiv.org/pdf/2504.16054\n\n**研究问题：**\n![image](assets/blog_images/257.png)\n![image](assets/blog_images/255.png)\n\n**总体架构：**\n![image](assets/blog_images/256.png)",
+        "updatedAt": "2026-11-12T14:00:54.132Z"
+    },
+    {
+        "title": "SmolVLA: A vision-language-action model for affordable and efficient robotics",
+        "date": "2026-11-09",
+        "slug": "smolvla",
+        "tags": "VLA",
+        "summary": "",
+        "markdown": "**文章标题：**SmolVLA: A vision-language-action model for affordable and efficient robotics\n**文章链接：**https://arxiv.org/pdf/2506.01844\n\n**研究问题：**\n\n\n",
+        "updatedAt": "2026-11-09T09:34:40.635Z"
+    },
+    {
+        "title": "Perceptive Humanoid Motion from Simulation",
+        "date": "2026-11-09",
+        "slug": "perceptive-humanoid-motion-from-simulation",
+        "tags": "VLA",
+        "summary": "",
+        "markdown": "**文章标题：**Perceptive Humanoid Motion from Simulation\n\n**文章链接：**https://arxiv.org/pdf/2611.06908\n\n**研究问题：**\n![image](assets/blog_images/234.png)\n\n**整体算法架构：**\n![image](assets/blog_images/235.png)\n![image](assets/blog_images/236.png)\n\n**相关文献：**[DiT](https://arxiv.org/pdf/2212.09748)\n![image](assets/blog_images/237.png)",
+        "updatedAt": "2026-11-10T02:11:27.509Z"
+    },
+    {
+        "title": "Viser: Imperative, Web-based 3D Visualization in Python",
+        "date": "2026-11-08",
+        "slug": "viser",
+        "tags": "Tools",
+        "summary": "",
+        "markdown": "**文章标题：**Viser: Imperative, Web-based 3D Visualization in Python\n**文章链接：**https://arxiv.org/pdf/2507.22885\n\n**项目链接：**https://viser.studio/main/\n",
+        "updatedAt": "2026-11-08T03:16:30.947Z"
+    },
+    {
+        "title": "PyRoki: A Modular Toolkit for Robot Kinematic Optimization",
+        "date": "2026-11-08",
+        "slug": "pyroki",
+        "tags": "Tools",
+        "summary": "",
+        "markdown": "**文章标题：**PyRoki: A Modular Toolkit for Robot Kinematic Optimization\n**文章链接：**https://arxiv.org/pdf/2505.03728\n**研究问题：**\n![image](assets/blog_images/228.png)\n**specifying kinematic variables and costs：**\n![image](assets/blog_images/229.png)",
+        "updatedAt": "2026-11-08T03:20:49.244Z"
+    },
+    {
+        "title": "PolicyIK: High-Precision Inverse Kinematics for Robot Arms with Reinforcement Learning",
+        "date": "2026-11-08",
+        "slug": "policyik",
+        "tags": "",
+        "summary": "",
+        "markdown": "**文章标题：**POLICYIK: HIGH-PRECISION INVERSE KINEMATICS FOR ROBOT ARMS WITH REINFORCEMENT LEARNING\n**文章链接：**https://arxiv.org/pdf/2611.05372\n\n",
+        "updatedAt": "2026-11-08T04:06:34.630Z"
+    },
+    {
+        "title": "frax: Fast Robot Kinematics and Dynamics in JAX",
+        "date": "2026-11-08",
+        "slug": "frax",
+        "tags": "Tools",
+        "summary": "",
+        "markdown": "**文章标题：**frax: Fast Robot Kinematics and Dynamics in JAX\n**文章链接：**https://arxiv.org/pdf/2604.04310\n\n**研究问题：**![image](assets/blog_images/230.png)\n**几款常见的IK：**\n![image](assets/blog_images/231.png)\n",
+        "updatedAt": "2026-11-08T10:23:13.761Z"
+    },
+    {
+        "title": "RTPolicy: Real-Time (32.9 Hz) Multi-View Visuomotor Policy for Robotic Manipulation on Edge Devices",
+        "date": "2026-11-08",
+        "slug": "rtpolicy",
+        "tags": "",
+        "summary": "",
+        "markdown": "**文章标题：**RTPolicy: Real-Time (32.9 Hz) Multi-View Visuomotor Policy for\nRobotic Manipulation on Edge Devices\n\n**文章链接：**https://arxiv.org/pdf/2610.41625v1\n\n**研究问题：**\n![image](assets/blog_images/233.png)\n\n**总体训练框架及视觉编码器：**\n![image](assets/blog_images/232.png)\n\n\n",
+        "updatedAt": "2026-11-08T11:51:27.279Z"
+    },
+    {
+        "title": "关于Denavit–Hartenberg Parameters",
+        "date": "2026-11-08",
+        "slug": "dh",
+        "tags": "Tools",
+        "summary": "",
+        "markdown": "## 什么是DH参数？\n[reference](https://zhuanlan.zhihu.com/p/2070078437075707781)\n任意两个相邻的关节坐标系，只需要4个几何参数，就能完整描述它们之间的相对位姿。",
+        "updatedAt": "2026-11-24T08:54:45.521Z"
+    },
+    {
+        "title": "One Demo is Worth a Thousand Trajectories: Action-View Augmentation for Visuomotor Policies",
+        "date": "2026-11-07",
+        "slug": "one-demo-is-worth-a-thousand-trajectories-action-view-augmentation-for-visuomotor-policies",
+        "tags": "",
+        "summary": "",
+        "markdown": "**文章标题：**One Demo is Worth a Thousand Trajectories: Action-View Augmentation for Visuomotor Policies\n**文章链接：**https://arxiv.org/pdf/2606.19586\n\n**研究问题：**![image](assets/blog_images/225.png)\n\n## 机器人学习数据增强\n![image](assets/blog_images/226.png)\n\n## 1001 DEMOS\n![image](assets/blog_images/227.png)\n",
+        "updatedAt": "2026-11-08T00:59:56.612Z"
+    },
+    {
+        "title": "关于Mixed Reality",
+        "date": "2026-11-06",
+        "slug": "mixed-reality",
+        "tags": "",
+        "summary": "",
+        "markdown": "reference\n1. https://www.hexfellow.com/\n2. https://dl.acm.org/doi/pdf/10.1145/3726986.3727004\n3. https://arxiv.org/pdf/2610.16186v2\n4. https://arxiv.org/pdf/2203.11324",
+        "updatedAt": "2026-11-24T08:31:10.694Z"
+    },
+    {
+        "title": "详解DDIM and DDPM",
+        "date": "2026-11-06",
+        "slug": "ddim-and-ddpm",
+        "tags": "DP",
+        "summary": "",
+        "markdown": "# DDPM、DDIM\n本文的参数都可以参考[reference](https://github.com/kingkingofall/DDPM_DDIM/blob/main/study.ipynb)\n\n![image](assets/blog_images/221.png)\n从一个干净图片x0开始，前向过程加噪：q(xt-1|xt)，逆向过程去噪：q(xt|xt-1)。这里模型最终辅助我们求解的是p。\n\n这里有几个分布：\n\n- q(x0)所在分布可以是**多峰的**，我们也是希望它是多峰的，\n- q(xt|x0)是固定干净样本后，加噪得到的分布，是严格高斯的\n- q(xt)是所有干净样本加噪后的整体分布，噪声足够大时接近标准高斯\n- q(x_t|xt-1,x0)单步加噪，也是高斯噪声（默认MDP可以去掉x0来看）\n- q(x_t-1|xt,x0)已知干净样本的反向去噪，严格高斯（不管是DDPM/DDIM）\n\n\n## 前向加噪（训练）\n该过程意为训练噪声模型，直到可以来预计累计噪声。\n前向是MDP，单步加噪是正态分布。\n![image](assets/blog_images/216.png)\n用重参数化采样方法表达为：\n![image](assets/blog_images/224.png)\n但因为正态分布叠加性可以快速完成从x0加噪到xt。\n可得xt：\n![image](assets/blog_images/209.png)\n得到xt之后，和t一起构造噪声，再和标签做MSE，来训练噪声模型。\n\n## 去噪（采样）\n这里不叫做推理了，而是从一开始就先随机采样一个xT。这个时候的噪声模型已经可以来预计噪声。目标是求过程中的xt直到求到x0。\n### MDP条件下被建模为，DDPM：\n![image](assets/blog_images/213.png)\n单步去噪输出被建模为条件正态分布（注意是条件）：\n![image](assets/blog_images/217.png)\n其中第一项在MDP条件下xt-1与x0无关，可以等于不带x0条件的p。\n得到均值和方差带入反向公式消去x0：\n![image](assets/blog_images/212.png)\n最终得到：\n![image](assets/blog_images/211.png)\n\n### Non-MDP条件下被建模为，DDIM：\n![image](assets/blog_images/214.png)\n注意这里这样建模是因为，单步去噪可以是任意分布那就假设满足正态分布，且和x0、xt都相关，那就线性叠加作为均值，这里先假设方差为σ，后面计算会发现σ可以为任意数。\nmk待定系数法：\n![image](assets/blog_images/218.png)\n解得：\n![image](assets/blog_images/219.png)\n其中，样本x0未知，但有数据：\n![image](assets/blog_images/212.png)\n由上面第一个公式逆运算，可以知道，得到噪声，因为xt可以高斯采样，就可以知道x0。这也是为什么神经网络虽然预测噪声，但也可以得到x0分布。\n另外，其实每一次从xt求解xt-1可以看成先根据神经网络预测噪声求得x0，然后再加噪加回到xt-1的。\n还可以发现xt-1在这里有两个噪声来源。一个是由xt转回x0来的，一个是得到x0之后加噪回xt-1来的，两个都参与每一个去噪步。\n\n然后，虽然最后我们得到xt-1发现σ可以是任意的，但其实对结果进行分解可以得到：\n![image](assets/blog_images/222.png)\n其中，\n![image](assets/blog_images/207.png)\nη=0时可以看到只有来自神经网络的预测噪声，随xt和t会有不同，随机性来自xT的采样，随后只要确定xt和t，去噪的路径就确定。这里其实有另外一个直觉是，第一个噪声决定xt转回x0的随机性，如果xt定了那它就是定的，第二个噪声决定走势。第二个噪声如果为0意味着加噪相同xt-1相同，这样的话路径就是一样的。\n\n### 总结：\nDDPM加噪与去噪步严格相等，DDIM去噪通过mk方法近似实现加速（去噪步分布可能不是正态分布了，但这里可以假设是）。\nDiffusion Policy 的多峰性来自：不同的初始噪声，经过去噪网络，可能落到不同的动作模式。\n采样的整体流程是，先采样确定xT，开始推理，由xt和t得到噪声，有xt和噪声得到x0，由x0得到xt-1，循环。\n\n### 训练标签怎么来？\n其实整个训练就是对加入的噪声进行拟合：先加入后拟合。噪声的标签都是从干净样本x0到当前xt的**累计**噪声（还是哪个加噪公式）：\n![image](assets/blog_images/223.png)\n基于它就可以得到x0嘛，就是反向了：\n![image](assets/blog_images/212.png)\n\n这里不是手动标签，有点像是非监督学习，但又用了MSE监督目标，最终目标生成多模态action chunk，所以还是属于模仿学习/监督学习。只不过是中间通过x0（数据集）可以知道噪声样本，从而进行训练。\n另外，其实**DDPM训练好的噪声可以给DDIM的采样来用**。噪声（累计噪声）和xt和t，可能还有condition有关。\n\n**上述推导可参考见[reference](https://github.com/kingkingofall/DDPM_DDIM/blob/main/study.ipynb)**\n\n",
+        "updatedAt": "2026-11-24T08:31:20.918Z"
+    },
+    {
+        "title": "LLMs can natively read & write neural network weights",
+        "date": "2026-11-05",
+        "slug": "llms-can-natively-read-write-neural-network-weights",
+        "tags": "weight-space programming",
+        "summary": "",
+        "markdown": "![image](assets/blog_images/171.png)\n\n\nreference\n1. [LLMs can natively read & write neural network weights](https://rikiyat.github.io/blog/weight-space-programming/)",
+        "updatedAt": "2026-11-05T03:26:21.796Z"
+    },
+    {
+        "title": "Neural Discrete Representation Learning",
+        "date": "2026-11-05",
+        "slug": "vq-vae",
+        "tags": "",
+        "summary": "",
+        "markdown": "## 什么是重参数化/Reparameterization Trick\n把随机性从可学习参数中分离出来，使采样结果能够表示为可微函数。\n1. 普通采样\n![image](assets/blog_images/177.png)\n问题在于：采样操作本身涉及随机性，不方便直接对它进行梯度反向传播。\n2. 重参数化\n![image](assets/blog_images/178.png)\n把“带有随机性的采样”转化为了“对 μ 和 σ 的确定性运算”加一个“独立的外部随机噪声 ε”。\n：[referece](https://www.reddit.com/r/MachineLearning/comments/1f3ohje/d_clarification_on_the_reparameterization_trick/?tl=zh-hans)\n\n## 什么是MCMC/Markov Chain Monte Carlo\n假设我们有一个目标概率分布，希望从中抽取样本。我们希望：\n- 峰值附近的区域更容易被采样。\n- 概率低的区域不容易被采样。\n- 最终采样结果的分布与目标分布一致。\n但问题是：我们不知道如何直接从这个复杂分布中抽样。\nMCMC就是解决这个问题的：不能直接抽样时，通过当前位置不断提出候选位置，并根据接受概率决定是否移动。\n![image](assets/blog_images/179.png)\n\n\n## stop-gradient\n1. 前向传播时：什么也不改变\n2. 反向传播时：阻止梯度穿过它\n如果 teacher 本来就是冻结模型，那么 stop-gradient 主要用于明确切断计算图和减少显存。如果 teacher 与 student 共享部分参数，或者 teacher 是 student 的 EMA 副本，停止梯度就尤其重要。\n### 在蒸馏student policy时的应用:\n[Consistency Models](https://arxiv.org/abs/2303.01469)\n[RL-100](https://arxiv.org/pdf/2510.14830v1)\n\n![image](assets/blog_images/185.png)\n\n\n## [CVAE]\n(https://arxiv.org/abs/2203.01218)\n![image](assets/blog_images/190.png)\n这里decoder 通常输出的是分布参数。得到分布后把数据集x带入可以计算loss。\n![image](assets/blog_images/180.png)\n![image](assets/blog_images/184.png)\n这里用到NLL/Negative Log-Likelihood/负对数似然，它的意义是：衡量模型给真实数据x分配的概率密度有多高。\n![image](assets/blog_images/181.png)\n由于Decoder的输入是q分布，cvae的重建loss期望是对q的。用的还是NLL。\n![image](assets/blog_images/182.png)\n![image](assets/blog_images/183.png)\n它希望 Encoder 采样出来的潜变量z，能够让 Decoder 输出一个对真实数据x赋予较高概率密度的分布。所以这里指的重建损失应该是原始数据x出现在预测分布里概率的多大程度匹配的损失。\n\n## [VQ-VAE]\n(https://arxiv.org/pdf/1711.00937)\n![image](assets/blog_images/189.png)\n\n![image](assets/blog_images/186.png)\n![image](assets/blog_images/187.png)\n\n分开写的价值是能独立控制两边的学习力度：\n![image](assets/blog_images/188.png)\n\n\n",
+        "updatedAt": "2026-11-05T13:26:11.570Z"
+    },
+    {
+        "title": "cvae and vq-vae",
+        "date": "2026-11-05",
+        "slug": "cvae-and-vq-vae",
+        "tags": "",
+        "summary": "",
+        "markdown": "## 什么是重参数化/Reparameterization Trick\n把随机性从可学习参数中分离出来，使采样结果能够表示为可微函数。\n1. 普通采样\n![image](assets/blog_images/177.png)\n问题在于：采样操作本身涉及随机性，不方便直接对它进行梯度反向传播。\n2. 重参数化\n![image](assets/blog_images/178.png)\n把“带有随机性的采样”转化为了“对 μ 和 σ 的确定性运算”加一个“独立的外部随机噪声 ε”。\n：[referece](https://www.reddit.com/r/MachineLearning/comments/1f3ohje/d_clarification_on_the_reparameterization_trick/?tl=zh-hans)\n\n## 什么是MCMC/Markov Chain Monte Carlo\n假设我们有一个目标概率分布，希望从中抽取样本。我们希望：\n- 峰值附近的区域更容易被采样。\n- 概率低的区域不容易被采样。\n- 最终采样结果的分布与目标分布一致。\n但问题是：我们不知道如何直接从这个复杂分布中抽样。\nMCMC就是解决这个问题的：不能直接抽样时，通过当前位置不断提出候选位置，并根据接受概率决定是否移动。\n![image](assets/blog_images/179.png)\n\n\n## stop-gradient\n1. 前向传播时：什么也不改变\n2. 反向传播时：阻止梯度穿过它\n如果 teacher 本来就是冻结模型，那么 stop-gradient 主要用于明确切断计算图和减少显存。如果 teacher 与 student 共享部分参数，或者 teacher 是 student 的 EMA 副本，停止梯度就尤其重要。\n### 在蒸馏student policy时的应用:\n[Consistency Models](https://arxiv.org/abs/2303.01469)\n[RL-100](https://arxiv.org/pdf/2510.14830v1)\n\n![image](assets/blog_images/185.png)\n\n\n## [CVAE]\n(https://arxiv.org/abs/2203.01218)\n![image](assets/blog_images/190.png)\n这里decoder 通常输出的是分布参数。得到分布后把数据集x带入可以计算loss。\n![image](assets/blog_images/180.png)\n![image](assets/blog_images/184.png)\n这里用到NLL/Negative Log-Likelihood/负对数似然，它的意义是：衡量模型给真实数据x分配的概率密度有多高。\n![image](assets/blog_images/181.png)\n由于Decoder的输入是q分布，cvae的重建loss期望是对q的。用的还是NLL。\n![image](assets/blog_images/182.png)\n![image](assets/blog_images/183.png)\n它希望 Encoder 采样出来的潜变量z，能够让 Decoder 输出一个对真实数据x赋予较高概率密度的分布。所以这里指的重建损失应该是原始数据x出现在预测分布里概率的多大程度匹配的损失。\n\n## [VQ-VAE]\n(https://arxiv.org/pdf/1711.00937)\n![image](assets/blog_images/189.png)\n\n![image](assets/blog_images/186.png)\n![image](assets/blog_images/187.png)\n\n分开写的价值是能独立控制两边的学习力度：\n![image](assets/blog_images/188.png)\n\n\n",
+        "updatedAt": "2026-11-05T13:35:30.756Z"
+    },
+    {
+        "title": "How to Get Involved in Computing Research as an Undergrad at UC Berkeley",
+        "date": "2026-11-04",
+        "slug": "how-to-get-involved-in-computing-research-as-an-undergrad-at-uc-berkeley",
+        "tags": "",
+        "summary": "",
+        "markdown": "转自：[How to Get Involved in Computing Research as an Undergrad at UC Berkeley](https://abbykoneill.github.io/posts/undergrad-research-berkeley.html)\n",
+        "updatedAt": "2026-11-04T05:57:03.659Z"
+    },
+    {
+        "title": "A brief history of VLAs",
+        "date": "2026-11-04",
+        "slug": "a-brief-history-of-vlas",
+        "tags": "VLA",
+        "summary": "",
+        "markdown": "## 关于离散：\n早期VLA的设计沿用LLM的思路，把action当成语言来用，即采用离散的描述，比如动作归一化到[-1.1]之后，用16/256 bins来切割。一个很直观的理解是，当action的颗粒度越精细，描述的action越趋近于连续，自然重建精度会越高。\n![image](assets/blog_images/155.png)\n![image](assets/blog_images/156.png)\n另外，可以使用clipping方法进一步约束action space（比如寻找到action的1%和99%边界，优化掉之外的action）。如图实验均方根表明，当bins小的时候，clipping方法的可以更进一步提高重建精度，当bin=64和256时，都没有提升，且当bin=256时，位置的均方根误差有5.5倍扩大。\n![image](assets/blog_images/158.png)\n\n## demonstrations在vla训练中的角色：interface\n![image](assets/blog_images/152.png)\n\n\n## A brief history of VLAs（from RT-1 to MolmoAct ）\n1） the coke can demo：“RT2, to move the Coke can to Taylor Swift”\n2） SayCan：Using language models to plan into various subtasks which were trained to imitate humans. This means that SayCan was limited to a menu of actions.\n3)  so RT-1 comes in: RT-1 uses discretization for this, trained on 130k successful robotics episodes, 13 robots and 700 tasks and over 17 months.\n![image](assets/blog_images/154.png)\n![image](assets/blog_images/153.png)\n4)  RT-2（discrete action）: Teaching a VLM to act. RT-1 does not know the meaning of every concept and Web-trained VLMs works.\n![image](assets/blog_images/159.png)\n5） Open X-Embodiment and RT-X: Learning across robots：What about transferring experience between different robots?\nOpen X-Embodiment brought together 21 institutions to pool over 1 million robot trajectories across 22 robot embodiments and 527 skills.\n![image](assets/blog_images/160.png)\nRT-2-X achieved 75.8% success compared to RT-2's 27.3%.\n![image](assets/blog_images/161.png)\n\n6) OpenVLA（discrete action）: A 7B-parameter open-source VLA trained on 970k robot demonstrations from Open X-Embodiment which consists of a visual encoder（SigLIP provides features and DINOv2 for spatial information） + projector + Llama 2 language model.\n![image](assets/blog_images/163.png)\nWhile evaluating across 29 tasks on WidowX and Google robots, OpenVLA outperformed the much larger 55B RT-2-X by 16.5 percentage points in average success.\n![image](assets/blog_images/169.png)\n\n7）Octo（continuous action）: Making robot policies adaptable, pretrained on 800k robot demonstrations from 25 Open X-Embodiment datasets, consists of input encoders + Transformer + diffusion action head：Could we build a pretrained robot policy that could be easily adapted to new robots, camera setups, and action spaces?\n![image](assets/blog_images/162.png)\nUnlike RT-1 and RT-2’s discrete action tokens, Octo uses a diffusion head to generate continuous action chunks.{for multimodality}\nThe evaluation was done across nine real-robot setups. After finetuning with 100 demos per task it acheived 72% average success across six setups compared to 20% for their policy trained from scratch.\n\n\n8) π0（predicting consequences）: How should a robot predict its next move?\nBy early 2024, a number of key members of the RT2 team had left Google and reassembled to form the startup physical intelligence which consists of PaliGemma + an action expert. \n![image](assets/blog_images/164.png)\n\n9）SmolVLA：has around 450M parameters(roughly 1/16th of openVLA). They use only the first half of the VLM’s language decoder layers and reduce each image to 64 visual tokens.\nThey have used asynchronous inference setup.\n![image](assets/blog_images/165.png)\n\n10) MolmoAct: introduces three stages: predicting depth, generating a visual trajectory, and finally producing robot actions.\n![image](assets/blog_images/166.png)\n![image](assets/blog_images/167.png)\n\n11) MolmoAct2：builds on this with improved spatial reasoning, adaptive depth prediction, and a continuous flow-matching action expert, making the approach considerably faster and more practical.\n![image](assets/blog_images/168.png)\n\n\nreference：\n1.[A brief history of VLAs](https://x.com/starlitmatcha/status/2116918927913804223)",
+        "updatedAt": "2026-11-04T09:37:52.999Z"
+    },
+    {
+        "title": "RL-100: Performant Robotic Manipulation with Real-World Reinforcement Learning",
+        "date": "2026-11-04",
+        "slug": "rl-100",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题：**RL-100: Performant Robotic Manipulation with Real-World Reinforcement Learning\n**文章链接：**https://arxiv.org/pdf/2510.14830v1\n\n**研究问题：** how can we build a robotic learning system that leverages strong human priors yet continues to refine itself through autonomous exploration? \n![image](assets/blog_images/174.png)\n\n**总体框架：**\n![image](assets/blog_images/175.png)\n**算法：**\n![image](assets/blog_images/176.png)\n### 关于 transition function：\n1. Train critics遵循IQL的Q、V网络设计；\n2. Train trainsition使用[AW-Q](https://arxiv.org/pdf/2311.03351)方法：\nmodel-based。 用学到的(T(s'|s,a))模拟轨迹，决定是否接受候选策略。H为向前模拟的步长。\n1）NLL训练transition function：\n![image](assets/blog_images/196.png)\n2）计算向前模拟H步的Q均值：\n![image](assets/blog_images/197.png)\n3）通过gate机制决定是否更新clip-style生成的新策略：\n![image](assets/blog_images/198.png)\nWHAT is OTO RL：\n![image](assets/blog_images/193.png)\n![image](assets/blog_images/195.png)\n\n### 关于two-level MDP：\n嵌套去噪步和时间步，MDP与sub-MDP：\n![image](assets/blog_images/205.png)\n\n### 关于Unified PPO objective over denoising steps\n![image](assets/blog_images/199.png)\n跟ppo的clip loss类似，但是这里求的是一个时间步对应的k个噪声步的loss的均值。\n![image](assets/blog_images/200.png)\npolicy ratio的更新也是以去噪步为单位的。\n后续将作为offlineRL和onlineRL共同的policy improvement。\n总的来说，offlineRL输入初始policy，policy evaluation用IQL更新Q和V得到A，显式训练transition function并用AW-Q通过预判Q的优略进一步约束policy improvement，在去噪步上；onlineRL时间步上GAE更新A和V，在去噪步维度上更新策略。\n![image](assets/blog_images/201.png)\n注意V代码用的是GAE更新的，不是用的regressive discounted return。\n\n### 关于CM|consistency model\n![image](assets/blog_images/202.png)\n![image](assets/blog_images/203.png)\n限制训练时噪声的bound：\n![image](assets/blog_images/204.png)\n\n### 关于reward\n![image](assets/blog_images/206.png)\n",
+        "updatedAt": "2026-11-06T06:49:22.465Z"
+    },
+    {
+        "title": "Steering Your Diffusion Policy with Latent Space Reinforcement Learning",
+        "date": "2026-11-04",
+        "slug": "dsrl",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题：**Steering Your Diffusion Policy with Latent Space Reinforcement Learning\n\n**文章链接：**https://arxiv.org/pdf/2506.15799\n\n**研究问题：**\nbc在开放世界中泛化不足，rl有比较好的在线finetuning能力。文章提出一种不修改base policy weight来adapt rl的方法：adapting the BC policy by running RL over its latent-noise space\n![image](assets/blog_images/238.png)\n\n**方案：**\n![image](assets/blog_images/243.png)\n![image](assets/blog_images/239.png)\n\n\n### 关于DSRL-NA\n![image](assets/blog_images/244.png)\n两个critic，QA和QW，训练从w服从标准正态分布出发。\n![image](assets/blog_images/246.png)\n从Fig.2也可以看到，也如作者所讲，DSRL-NA能够确保输出in-distribution的动作，因为尽管DSRL-NA在online improvement的过程中会选择不同的w，但这是在noise latent space发生的，action space一直被约束在前期由pi_dp定好的空间内，所以DSRL-NA方法不会输出从来没见过的action（在线更新的时候会出现新的估值更高的动作方案，但应该也是动作组合不一样，每一个动作依旧在那个dp已经定义好了的空间里），且是一种不需要显式定义约束的方法。\n![image](assets/blog_images/245.png)\n\n### 关于Diffusion Steering\n![image](assets/blog_images/242.png)\n![image](assets/blog_images/241.png)\n![image](assets/blog_images/240.png)\n\n\n\n\n",
+        "updatedAt": "2026-11-11T09:28:35.990Z"
+    },
+    {
+        "title": "Failure-Aware RL: Reliable Offline-to-Online Reinforcement Learning with Self-Recovery for Real-World Manipulation",
+        "date": "2026-11-03",
+        "slug": "failure-aware-rl",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题：**Failure-Aware RL: Reliable Offline-to-Online Reinforcement Learning with Self-Recovery for Real-World Manipulation\n\n**文章链接：**https://arxiv.org/pdf/2601.07821\n\n**研究问题：**\n![image](assets/blog_images/133.png)",
+        "updatedAt": "2026-11-03T03:43:59.743Z"
+    },
+    {
+        "title": "OFFLINE REINFORCEMENT LEARNING WITH IMPLICIT Q-LEARNING",
+        "date": "2026-11-03",
+        "slug": "iql",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题：**OFFLINE REINFORCEMENT LEARNING WITH IMPLICIT Q-LEARNING\n**文章链接：**https://arxiv.org/pdf/2110.06169\n\n**研究问题：**\n![image](assets/blog_images/148.png)\n![image](assets/blog_images/138.png)\n\n**算法思路：**\n1. 用 Bellman Regression 学习数据动作的 Q 值\nCritic (Q-value Function): fits action values with Bellman regression.\n![image](assets/blog_images/135.png)\n\n实践中常用以下的公式：\n![image](assets/blog_images/191.png)\n1）TD方向需要固定住上一次V网络的输出；\n2）并添加终止状态掩码(1-d)，d=1表示真正终止，此时目标就是r，不再累加未来价值；非终止时d=0。\n\n2. 通过 Upper Expectile 估计较优动作的价值\nValue (State Value Function): learns a value function biased toward high-return regions via expectile regression.\n![image](assets/blog_images/136.png)\n![image](assets/blog_images/137.png)\n实践中常用以下的公式：\n![image](assets/blog_images/192.png)\n\n3. 计算 Advantage，通过 AWBC 优先模仿高 Advantage 的动作\nActor (Policy Model): updates the policy with advantage-weighted behavior cloning (Advantage-Weighted BC).\n![image](assets/blog_images/139.png)\n\n",
+        "updatedAt": "2026-11-06T03:09:52.237Z"
+    },
+    {
+        "title": "offline-to-online RL",
+        "date": "2026-11-03",
+        "slug": "offline-to-online-rl",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "offline-to-online RL\n![image](assets/blog_images/172.png)\n放弃，是为了更好的成长！\n![image](assets/blog_images/247.png)\n\n\nreference：\n1. [Failure-Aware RL](https://arxiv.org/pdf/2601.07821)\n![image](assets/blog_images/134.png)\n2. [RL-100](https://arxiv.org/pdf/2510.14830)\n![image](assets/blog_images/170.png)\n3.[UNI-O4](https://arxiv.org/pdf/2311.03351)\n![image](assets/blog_images/194.png)",
+        "updatedAt": "2026-11-11T09:33:33.276Z"
+    },
+    {
+        "title": "state value function and action value function",
+        "date": "2026-11-03",
+        "slug": "state-value-function-and-action-value-function",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "## 关于state value function and action value function:\n![image](assets/blog_images/143.png)\n![image](assets/blog_images/144.png)\n\n计算 Q 时，动作已经给定；计算 V 时，动作还没有确定，需要考虑可能采取的动作。Q和V的贝尔曼方程形式类似，但V需要再计算一下不同action condition下的Q的期望。\n![image](assets/blog_images/145.png)\n![image](assets/blog_images/146.png)\n![image](assets/blog_images/147.png)\n\nBellman Optimality Equation（BOE）\n小tip：把对a取期望的项目去掉，换成Max（相当于均值换成最大值）\n![image](assets/blog_images/150.png)\n![image](assets/blog_images/149.png)\n![image](assets/blog_images/151.png)\n\n## 关于state value function更新的三种不同方式\n![image](assets/blog_images/249.png)\n：\n1. DP方法：通过已知的环境模型（Model），也就是状态转移概率和奖励函数，对所有可能发生的结果进行加权求和得到的，而不是通过实际采样的数据估计出来的。\n\n![image](assets/blog_images/253.png)\n![image](assets/blog_images/254.png)\n![image](assets/blog_images/252.png)\n2. MC方法：\n![image](assets/blog_images/250.png)\n![image](assets/blog_images/251.png)\nREINFORCE方法就是用的MC方法采样来做的策略梯度。loss常用到优势函数而不是价值函数。\n\n[reference](https://lilianweng.github.io/posts/2018-02-19-rl-overview/)\n\n",
+        "updatedAt": "2026-11-12T02:29:47.832Z"
+    },
+    {
         "title": "online/offline RL and on-policy/off-policy RL",
         "date": "2026-11-02",
         "slug": "online-offline-rl-and-on-policy-off-policy-rl",
         "tags": "",
         "summary": "",
-        "markdown": "online/offline RL:transition是否是在新的rollout中的到得到\n\non-policy/off-policy RL：数据的行为策略（Behavior Policy）是否需要与当前学习的策略一致\n-------------------------------------------------------\nOnline On-policy\t持续交互，使用当前策略数据\tPPO、TRPO\n\nOnline Off-policy\t持续交互，允许使用历史策略数据\tSAC、TD3、DQN、RLPD\n\nOffline On-policy\t不再交互，使用固定数据\t严格定义下通常不成立为标准 On-policy RL\n\nOffline Off-policy\t不再交互，使用固定数据集\tCQL、IQL",
-        "updatedAt": "2026-11-02T02:33:35.945Z"
+        "markdown": "online/offline RL:transition是否是在新的rollout中的到得到\n\non-policy/off-policy RL：数据的行为策略（Behavior Policy）是否需要与当前学习的策略一致，判断的时候可以看behavior policy和target policy（training target）是否一致。\n-------------------------------------------------------\nOnline On-policy\t持续交互，使用当前策略数据\tPPO、TRPO\n\nOnline Off-policy\t持续交互，允许使用历史策略数据\tSAC、TD3、DQN、RLPD\n\nOffline On-policy\t不再交互，使用固定数据\t严格定义下通常不成立为标准 On-policy RL\n\nOffline Off-policy\t不再交互，使用固定数据集\tCQL、IQL\n\nreference:\n1. https://lei-kun.github.io/blogs/rl.html",
+        "updatedAt": "2026-11-04T02:46:55.992Z"
+    },
+    {
+        "title": "BC loss、Cross Entropy、MSE loss and AWBC",
+        "date": "2026-11-02",
+        "slug": "bc-loss-cross-entropy-mse-loss-and-awbc",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**BC loss、Cross Entropy、MSE loss and AWBC**\n1. 普通 Behavior Cloning（BC）\n1） 离散动作空间交叉熵：BC 的交叉熵实际上是在最大化专家动作的似然。\n![image](assets/blog_images/127.png)\n非one hot编码求解：\n![image](assets/blog_images/130.png)\none hot编码求解:\n![image](assets/blog_images/131.png)\n2） 连续动作空间使用MSE\n![image](assets/blog_images/129.png)\n\n2. Advantage-Weighted BC（AWBC, using in IQL)\n![image](assets/blog_images/128.png)\n",
+        "updatedAt": "2026-11-03T03:35:03.299Z"
     },
     {
         "title": "Waypoint-Based Imitation Learning for Robotic Manipulation",
@@ -88,6 +376,15 @@ window.HENCY_BLOG_POSTS = [
         "summary": "",
         "markdown": "**文章标题:**Precise and Dexterous Robotic Manipulation via Human-in-the-Loop Reinforcement Learning\n**文章链接:**https://hil-serl.github.io/static/hil-serl-paper.pdf\n\n**Real-world human intervention reinforcement learning:**\n![image](assets/blog_images/102.png)\n![image](assets/blog_images/103.png)\n\n**reward classifier:**\n![image](assets/blog_images/104.png)\n\n**reactive policy and preditive policy:**\n![image](assets/blog_images/105.png)\n\n**这一篇工作的控制器值得研究,twist controller/feedforward force controller.**",
         "updatedAt": "2026-10-26T11:41:45.089Z"
+    },
+    {
+        "title": "Robust Ladder Climbing with a Quadrupedal Robot",
+        "date": "2026-10-09",
+        "slug": "robust-ladder-climbing-with-a-quadrupedal-robot",
+        "tags": "RL",
+        "summary": "",
+        "markdown": "**文章标题：**Robust Ladder Climbing with a Quadrupedal Robot\n**文章链接：**https://arxiv.org/pdf/2409.17731\n\n**整体训练框架：**\n![image](assets/blog_images/101.png)",
+        "updatedAt": "2026-10-09T16:34:43.489Z"
     },
     {
         "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
@@ -185,8 +482,8 @@ window.HENCY_BLOG_POSTS = [
         "slug": "unifp",
         "tags": "RL",
         "summary": "",
-        "markdown": "**文章标题**：Learning a Unified Policy for Position and Force Control in Legged Loco-Manipulation\n**链接**：https://unified-force.github.io/\n\n**总体推理架构**：![image](assets/blog_images/81.png)\n\n**思考**：是不是和物理世界交互的模态，都应该用一个estimator来估计真实的隐空间信号，并且是不是这样子给任务带来的understanding要优于直接赋予显式信号的sensor带来的？换句话说，在unift这个工作中，这样的estimator是否学到了除了力之外的其它信号？\n",
-        "updatedAt": "2026-08-29T05:38:29.023Z"
+        "markdown": "**文章标题**：Learning a Unified Policy for Position and Force Control in Legged Loco-Manipulation\n**链接**：https://unified-force.github.io/\n\n**总体推理架构**：![image](assets/blog_images/81.png)\n\n**思考**：是不是和物理世界交互的模态，都应该用一个estimator来估计真实的隐空间信号，并且是不是这样子给任务带来的understanding要优于直接赋予显式信号的sensor带来的？换句话说，在unift这个工作中，这样的estimator是否学到了除了力之外的其它信号？\n\n**训练：**在isaac gym上训练rl policy，训练好直接部署到真机上，通过遥操采集数据训练dp。\n",
+        "updatedAt": "2026-10-09T16:38:28.519Z"
     },
     {
         "title": "Catch It! Learning to Catch in Flight with Mobile Dexterous Hands",
@@ -374,8 +671,8 @@ window.HENCY_BLOG_POSTS = [
         "slug": "diffusion-policy",
         "tags": "DP",
         "summary": "",
-        "markdown": "**标题：**Diffusion Policy: Visuomotor Policy Learning via Action Diffusion\n\n**链接：**https://arxiv.org/pdf/2303.04137\n\nwhat it the difference among diffusion policy and others?\n![image](assets/blog_images/79.png) \n![image](assets/blog_images/78.png) \n\n**网络架构：**\n![image](assets/blog_images/36.png)\n当 diffusion 生成的是图像时，denoiser 要处理高维空间结构，所以常用 U-Net 或 DiT；当 diffusion 生成的是低维动作序列时，denoiser 只需要处理动作时间序列，所以可以用 1D CNN 或 Transformer。图像观测只是条件输入，通常先由视觉编码器提成特征。\n\n为什么这里action horizon可以影响trade-off between responsiveness and temporal consistancy?\n需要清楚，action horizon越小，比如说1，此时就不是action chunkings output了，当然会影响动作连贯性；action horizon越大，相比于小的horizon推理的时间会更长，responsiveness就低一些。\n![image](assets/blog_images/1.png)\n**Temporal Action Consistancy**：动作序列在时间维度上的连贯性。\n\n\n**DDPM/DDIM；**\nmlp/cnn/u-net/transformer等网络模型根据随机噪声和条件预测去噪噪声，过scheduler（ddpm/ddim）得到去噪的动作，迭代多次（K）得到下一个action chunk\n![image](assets/blog_images/54.png)\n\n**DDPM 全称：**\nDenoising Diffusion Probabilistic Models|去噪扩散概率模型\n**DDIM 全称：**\nDenoising Diffusion Implicit Models | 去噪扩散隐式模型（通过 **η** 调节是否是确定性的）\n真实机器人实验中训练用了 100 个 training diffusion iterations，但用 DDIM 把 inference iterations 降到 8 来减少延迟\n\n都属于采样/生成方法\n```bash\nDDPM：学会怎么一步步去噪\nDDIM：推理时少走几步、跳着去噪\nDiffusion Policy：把这个过程放到 action chunk 上\n```\n\n训练时在每一个batch里，dp会\n1. 取一批 demonstration 数据\n2. 取出 observation 和真实 action chunk\n3. 随机采样 diffusion timestep t：先从真实 action 出发，把一个和 action 同尺寸的随机噪声加到 action 上，得到 noisy action，再把 noisy action 和 t 输入网络\n4. 给真实 action chunk 加噪声\n5. 把 noisy action、observation、t 输入 denoising network\n6. 网络预测噪声\n7. 用预测噪声和真实噪声计算 loss\n8. 反向传播，更新 CNN / Transformer / U-Net 参数\n**t=100 表示“有 100 种噪声程度”**\n**DDPM：**\n![image](assets/blog_images/75.png)\n```python\na_t = sqrt(alpha_bar_t) * a_0 + sqrt(1 - alpha_bar_t) * epsilon # t越大，噪声越大\n```\n![image](assets/blog_images/76.png)\n训练从x0到xt，在t步加噪情况下总共加了多少噪声；推理从xt到x0，在t步去噪下总共需要减去多少噪声，迭代到x0.\n\n**为什么denoising step越多，模型更容易生成多模态结果？**\n想象每一次action chunking的输出都分布在一个distribution（自身具备一定的多模态性），denoising step越多，模型更能正确找到这个distribution（但输出仍旧是一个特定的解，有不同的解所以具备多模态性）。\n由于噪声估计有error，所以每次从不同step估计得到的x0可能都不在一个distribution里，但这里得承认经过不断地使用噪声估计器来减噪，结果是越来越清晰的（比一开始的随机噪声清晰）。\n本来加噪过程的学习其实也是由x0一步一步加过来的，此时如果在去噪的时候直接由一个纯噪声一步变为x0，是不准的。这个不准可能体现在原先数据分布可能是多模态的（比如说多峰分布），现在直接变成了单峰。如果只是one-step denoising，那么不同的初始噪声都可能首先是非正解，这个非正解可能是多模态性坍缩，也可能是是多峰分布但数值有问题。\n另外，注意，这里只是最后算出来x0解的空间刚好落在那个distribution上，不是说在这个distribution里面随机采样一个解来作为x0，也没法这么做。\n但one-step denoising的好处自然就在于它够快，当objective action space比较简单符合单峰的时候，可以考虑直接用。但最好还是蒸馏一下？",
-        "updatedAt": "2026-09-05T18:57:24.868Z"
+        "markdown": "**标题：**Diffusion Policy: Visuomotor Policy Learning via Action Diffusion\n\n**链接：**https://arxiv.org/pdf/2303.04137\n\nwhat it the difference among diffusion policy and others?\n![image](assets/blog_images/79.png) \n![image](assets/blog_images/78.png) \n\n**网络架构：**\n![image](assets/blog_images/36.png)\n当 diffusion 生成的是图像时，denoiser 要处理高维空间结构，所以常用 U-Net 或 DiT；当 diffusion 生成的是低维动作序列时，denoiser 只需要处理动作时间序列，所以可以用 1D CNN 或 Transformer。图像观测只是条件输入，通常先由视觉编码器提成特征。\n\n为什么这里action horizon可以影响trade-off between responsiveness and temporal consistancy?\n需要清楚，action horizon越小，比如说1，此时就不是action chunkings output了，当然会影响动作连贯性；action horizon越大，相比于小的horizon推理的时间会更长，responsiveness就低一些。\n![image](assets/blog_images/1.png)\n**Temporal Action Consistancy**：动作序列在时间维度上的连贯性。\n\n\n**DDPM/DDIM**\n[reference](https://github.com/kingkingofall/DDPM_DDIM/blob/main/study.ipynb)\nmlp/cnn/u-net/transformer等网络模型根据随机噪声和条件预测去噪噪声，过scheduler（ddpm/ddim）得到去噪的动作，迭代多次（K）得到下一个action chunk\n![image](assets/blog_images/54.png)\n\n**DDPM 全称：**\nDenoising Diffusion Probabilistic Models|去噪扩散概率模型\n**DDIM 全称：**\nDenoising Diffusion Implicit Models | 去噪扩散隐式模型（通过 **η** 调节是否是确定性的）\n![image](assets/blog_images/207.png)\n真实机器人实验中训练用了 100 个 training diffusion iterations，但用 DDIM 把 inference iterations 降到 8 来减少延迟\n\n都属于采样/生成方法\n```bash\nDDPM：学会怎么一步步去噪\nDDIM：推理时少走几步、跳着去噪\nDiffusion Policy：把这个过程放到 action chunk 上\n```\n\n训练时在每一个batch里，dp会\n1. 取一批 minibatch demonstration 数据\n2. 取出 observation 和真实 action chunk\n3. 随机采样 diffusion timestep t：先从真实 action 出发，把一个和 action 同尺寸的随机噪声加到 action 上，得到 noisy action，再把 noisy action 和 t 输入网络\n4. 把 noisy action、observation、t 输入 denoising network\n5. 网络预测噪声\n6. 用预测噪声和真实噪声计算 loss\n7. 反向传播，更新 CNN / Transformer / U-Net 参数\n**t=100 表示“有 100 种噪声程度”**\n**DDPM：**\n![image](assets/blog_images/75.png)\n```python\na_t = sqrt(alpha_bar_t) * a_0 + sqrt(1 - alpha_bar_t) * epsilon # t越大，噪声越大\n```\n![image](assets/blog_images/76.png)\n训练从x0到xt，在t步加噪情况下总共加了多少噪声；推理从xt到x0，在t步去噪下总共需要减去多少噪声，迭代到x0.\n\n**为什么denoising step越多，模型更容易生成多模态结果？**\n想象每一次action chunking的输出都分布在一个distribution（自身具备一定的多模态性），denoising step越多，模型更能正确找到这个distribution（但输出仍旧是一个特定的解，有不同的解所以具备多模态性）。\n由于噪声估计有error，所以每次从不同step估计得到的x0可能都不在一个distribution里，但这里得承认经过不断地使用噪声估计器来减噪，结果是越来越清晰的（比一开始的随机噪声清晰）。\n本来加噪过程的学习其实也是由x0一步一步加过来的，此时如果在去噪的时候直接由一个纯噪声一步变为x0，是不准的。这个不准可能体现在原先数据分布可能是多模态的（比如说多峰分布），现在直接变成了单峰。如果只是one-step denoising，那么不同的初始噪声都可能首先是非正解，这个非正解可能是多模态性坍缩，也可能是是多峰分布但数值有问题。\n另外，注意，这里只是最后算出来x0解的空间刚好落在那个distribution上，不是说在这个distribution里面随机采样一个解来作为x0，也没法这么做。\n但one-step denoising的好处自然就在于它够快，当objective action space比较简单符合单峰的时候，可以考虑直接用。但最好还是蒸馏一下？",
+        "updatedAt": "2026-11-06T08:42:58.763Z"
     },
     {
         "title": "π0",
@@ -383,8 +680,8 @@ window.HENCY_BLOG_POSTS = [
         "slug": "0",
         "tags": "VLA",
         "summary": "",
-        "markdown": "**标题**: π0: A Vision-Language-Action Flow Model for General Robot Control\n**文章链接**：https://arxiv.org/pdf/2410.24164\n**总体架构**：\n\n![image](assets/blog_images/8.png)\n\n**注意**：In practice, the representation would be broken since the cross-attention integration between visual observations and predicted noisy tactile signals\n\n**VLM架构**（以PaliGemma为例）：\n**decoder-only transformer architecture, using self-attection to connect different tokens**\n![image](assets/blog_images/9.png)",
-        "updatedAt": "2026-05-10T05:34:13.546Z"
+        "markdown": "**标题**: π0: A Vision-Language-Action Flow Model for General Robot Control\n**文章链接**：https://arxiv.org/pdf/2410.24164\n\n从LLM到VLM到1st VLA到 2rd VLA\n![image](assets/blog_images/248.png)\n1. 原始transformer-based LLM\n2. 加一个visual encoder\n3. 输出变为离散的动作token\n4. 用一个diffusion head+参考动作生成连续空间的动作：virtual motor cortex\n\n**总体架构**：\n![image](assets/blog_images/8.png)\n\n**注意**：In practice, the representation would be broken since the cross-attention integration between visual observations and predicted noisy tactile signals\n\n**VLM架构**（以PaliGemma为例）：\n**decoder-only transformer architecture, using self-attection to connect different tokens**\n![image](assets/blog_images/9.png)",
+        "updatedAt": "2026-11-11T09:43:01.112Z"
     },
     {
         "title": "ImplicitRDP",
