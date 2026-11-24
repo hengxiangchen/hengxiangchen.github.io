@@ -269,6 +269,72 @@
             font-size: 20px;
         }
     }
+    .post-search-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+    }
+
+    .post-search-row .field {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .post-search-row .button {
+        min-height: 38px;
+        box-sizing: border-box;
+    }
+
+    .post-search-status {
+        margin: 8px 0 12px;
+    }
+
+    #post-search {
+        min-height: 44px;
+        border: 2px solid #ad7c24;
+        border-radius: 6px;
+        background: #fff5d6;
+        box-shadow: 0 0 0 3px rgba(173, 124, 36, 0.1);
+        transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    #post-search::placeholder {
+        color: #756345;
+        opacity: 1;
+    }
+
+    #post-search:focus {
+        border-color: #8a5b0a;
+        outline: 2px solid #ad7c24;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 5px rgba(173, 124, 36, 0.16);
+    }
+
+    html[data-theme="dark"] #post-search {
+        border-color: #e3b65c;
+        background: #30291b;
+        color: #fff1cf;
+        box-shadow: 0 0 0 3px rgba(227, 182, 92, 0.12);
+    }
+
+    html[data-theme="dark"] #post-search::placeholder {
+        color: #c7b38a;
+    }
+
+    html[data-theme="dark"] #post-search:focus {
+        border-color: #ffcf75;
+        outline-color: #ffcf75;
+        box-shadow: 0 0 0 5px rgba(227, 182, 92, 0.2);
+    }
+    .post-search-row .field { display: flex; flex-direction: column; gap: 8px; }
+    #post-search { width: 100%; box-sizing: border-box; padding: 10px 12px; font: inherit; font-size: 14px; }
+    .post-search-row .button { border: 1px solid #ddd4c3; background: #fffdf8; color: #5a4d3c; padding: 10px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+    .post-search-status { color: #777; font-size: 13px; }
+    html[data-theme="dark"] .post-search-row .button { background: #141920; border-color: #2c3642; color: #c9d7e6; }
+    html[data-theme="dark"] .post-search-status { color: #aeb8c4; }
+    #no-search-results { color: #777; }
+    html[data-theme="dark"] #no-search-results { color: #aeb8c4; }
+
 </style>
 </head>
 <body>
@@ -287,8 +353,18 @@
             </p>
         </header>
 
+        <div class="post-search-row" role="search" aria-label="Search blog posts">
+            <div class="field">
+                <label for="post-search">Search posts</label>
+                <input id="post-search" type="search" placeholder="Search title, tags, content, or date..." aria-controls="post-list" aria-describedby="post-search-status">
+            </div>
+            <button type="button" class="button" id="clear-post-search">Clear</button>
+        </div>
+        <p class="post-search-status" id="post-search-status" role="status" aria-live="polite"></p>
+
         <div class="tag-filter" id="tag-filter" aria-label="Filter by tag"></div>
 
+        <p id="no-search-results" hidden>No matching posts. Try different keywords or clear the filters.</p>
         <ul class="post-list" id="post-list">
             <li class="post" id="empty-post">
                 <h2 class="post-title">
@@ -482,24 +558,54 @@ if (savedPosts.length) {
         });
 }
 
-tagFilter.addEventListener('click', (event) => {
+const postSearch = document.getElementById('post-search');
+const postSearchStatus = document.getElementById('post-search-status');
+const postsBySlug = new Map(savedPosts.filter(isPublishablePost).map(post => [post.slug, post]));
+let selectedTag = '';
+
+function applyPostFilters() {
+    const terms = postSearch.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    let visible = 0;
+    let total = 0;
+    postList.querySelectorAll('.post').forEach(item => {
+        const post = postsBySlug.get(item.id);
+        if (!post) return;
+        total += 1;
+        const searchable = [post.title, post.tags, post.summary, post.markdown, post.slug, post.date]
+            .map(value => String(value || '').toLowerCase()).join('\n');
+        const tagMatches = !selectedTag || parseTags(post.tags).includes(selectedTag);
+        item.hidden = !(tagMatches && terms.every(term => searchable.includes(term)));
+        if (!item.hidden) visible += 1;
+    });
+    postSearchStatus.textContent = terms.length || selectedTag
+        ? `${visible} of ${total} posts match.`
+        : `${total} posts. Search titles, tags, summaries, content, slugs, and dates.`;
+    document.getElementById('no-search-results').hidden = visible > 0 || total === 0;
+}
+
+tagFilter.addEventListener('click', event => {
     const button = event.target.closest('[data-filter-tag]');
-    if (!button) {
-        return;
-    }
-    const selectedTag = button.dataset.filterTag;
-    tagFilter.querySelectorAll('.tag-button').forEach((tagButton) => {
-        tagButton.classList.toggle('is-active', tagButton === button);
+    if (!button) return;
+    selectedTag = button.dataset.filterTag;
+    tagFilter.querySelectorAll('.tag-button').forEach(item => {
+        item.classList.toggle('is-active', item === button);
+        item.setAttribute('aria-pressed', String(item === button));
     });
-    postList.querySelectorAll('.post').forEach((post) => {
-        if (!selectedTag) {
-            post.hidden = false;
-            return;
-        }
-        const tags = post.dataset.tags.split(',');
-        post.hidden = !tags.includes(selectedTag);
-    });
+    applyPostFilters();
 });
+postSearch.addEventListener('input', applyPostFilters);
+document.getElementById('clear-post-search').addEventListener('click', () => {
+    postSearch.value = '';
+    applyPostFilters();
+    postSearch.focus();
+});
+postSearch.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+        postSearch.value = '';
+        applyPostFilters();
+    }
+});
+applyPostFilters();
 
 postList.addEventListener('click', (event) => {
     const trigger = event.target.closest('[data-toggle-post]');
